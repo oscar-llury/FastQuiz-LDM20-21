@@ -27,7 +27,7 @@ public class Question {
     }
 
     public void setCorrect(int correct) {
-        this.correct = correct;
+        this.correct = correct-1;
     }
 
     public String getQuestion() {
