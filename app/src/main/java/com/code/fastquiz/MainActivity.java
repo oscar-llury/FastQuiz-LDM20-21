@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         question5.addAnswer("Índico",false);
         question5.addAnswer("Atlántico",false);
         question5.addAnswer("Antártico",false);
+        question1.getAnswer();
     }
 
         }
