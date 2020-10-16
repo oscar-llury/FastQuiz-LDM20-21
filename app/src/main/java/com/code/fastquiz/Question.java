@@ -2,30 +2,33 @@ package com.code.fastquiz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Question {
-    private int correct;
+    private Integer correctPos; //Posición correcta en los botones
     private String question;
     private boolean image;
     private String path;
     private List<String> answers;
+    private int contShownAnswers;
 
     public Question() {
     }
 
     public Question(String question) {
+        this.contShownAnswers = 0;
+        this.correctPos = null;
         this.question = question;
         this.answers = new ArrayList<String>();
     }
 
     public Question(String question, boolean image, String path) {
+        this.contShownAnswers = 0;
+        this.correctPos = null;
         this.question = question;
         this.image = image;
         this.path = path;
         this.answers = new ArrayList<String>();
-    }
-    public int getCorrect() {
-        return correct;
     }
 
     public String getQuestion() {
@@ -53,17 +56,31 @@ public class Question {
     }
 
     public String getAnswer(){
-        return this.answers.get(1);
+        if(this.contShownAnswers == 0){
+        Random rnd = new Random();
+        correctPos = (int) (rnd.nextDouble()*4);
+        System.out.println(correctPos);
+        }
+        contShownAnswers = contShownAnswers++;
+        if(contShownAnswers==correctPos) {
+            return this.answers.get(1);
+        }else{
+            Random rnd2 = new Random();
+            System.out.println(this.answers.size());
+            return this.answers.get((int) (rnd2.nextDouble()*this.answers.size()));
+        }
+
     }
 
-    public void addAnswer(String answer,boolean isCorrect) {
+    public void addAnswer(String answer, boolean isCorrect) {
         if (this.answers.isEmpty()) {
             this.answers = new ArrayList<String>();
         }
         this.answers.add(answer);
         if(isCorrect) {
-            this.correct = this.answers.size();
-            System.out.println(this.answers.size());
+            this.answers.add(0,answer);
+        }else{
+            this.answers.add(answer);
         }
 
     }
