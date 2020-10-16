@@ -15,12 +15,14 @@ public class Question {
 
     public Question(String question) {
         this.question = question;
+        this.answers = new ArrayList<String>();
     }
 
     public Question(String question, boolean image, String path) {
         this.question = question;
         this.image = image;
         this.path = path;
+        this.answers = new ArrayList<String>();
     }
     public int getCorrect() {
         return correct;

@@ -26,22 +26,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Question question1 = new Question("¿Como de tonto soy?");
-        question1.addAnswer("Mucho");
-        question1.addAnswer("Poco");
-        question1.addAnswer("Demasiado");
-        question1.setCorrect(1);
-        Question question2 = new Question("¿Vamos a aprobar?");
-        question2.addAnswer("Sí");
-        question2.addAnswer("No");
-        question2.addAnswer("Con ayuda de Jesucristo puede ser");
-        question2.setCorrect(1);
-        Question question3 = new Question("¿Quién descubrió América?")
-                question3.addAnswer("Cristiano Ronaldo");
-                question3.addAnswer("Messi");
-                question3.addAnswer("Cristóbal Colón");
-                question3.addAnswer(3);
+
     }
 
-        }
-
+}
