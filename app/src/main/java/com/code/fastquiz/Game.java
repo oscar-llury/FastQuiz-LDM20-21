@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class Game extends AppCompatActivity {
         Button answer2 = findViewById(R.id.button_answer2);
         Button answer3 = findViewById(R.id.button_answer3);
         Button answer4 = findViewById(R.id.button_answer4);
+
+        ArrayList<Question> list_questions = new ArrayList<Question>();
 
         Question question1 = new Question("¿Cuál es la capital de Mongolia?");
         question1.addAnswer("Estambul",false);
@@ -49,18 +52,19 @@ public class Game extends AppCompatActivity {
         question5.addAnswer("Atlántico",false);
         question5.addAnswer("Antártico",false);
 
-        question.setText(question1.getQuestion());
-        answer1.setText(question1.getAnswer());
-        answer2.setText(question1.getAnswer());
-        answer3.setText(question1.getAnswer());
-        answer4.setText(question1.getAnswer());
+        list_questions.add(question1);
+        list_questions.add(question2);
+        list_questions.add(question3);
+        list_questions.add(question4);
 
-        answer1.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Random rnd = new Random ();
-                System.out.println((int)(rnd.nextDouble()*3+1));
-            }
-        });
+        Random rnd = new Random(2582054);
+        Question question_to_show = list_questions.get((int) (rnd.nextDouble()*list_questions.size()));
+        question.setText(question_to_show.getQuestion());
+
+        answer1.setText(question_to_show.getAnswer());
+        answer2.setText(question_to_show.getAnswer());
+        answer3.setText(question_to_show.getAnswer());
+        answer4.setText(question_to_show.getAnswer());
 
     }
 }

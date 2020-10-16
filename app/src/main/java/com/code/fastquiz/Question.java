@@ -57,17 +57,23 @@ public class Question {
 
     public String getAnswer(){
         if(this.contShownAnswers == 0){
-        Random rnd = new Random();
-        correctPos = (int) (rnd.nextDouble()*4);
-        System.out.println(correctPos);
+            Random rnd = new Random(36316481);
+            this.correctPos = (int) (rnd.nextDouble()*4)+1;
+            System.out.println("correctPos "+correctPos);
         }
-        contShownAnswers = contShownAnswers++;
-        if(contShownAnswers==correctPos) {
-            return this.answers.get(1);
+        this.contShownAnswers = this.contShownAnswers+1;
+        if(this.contShownAnswers==this.correctPos) {
+            System.out.println("correcto");
+            return this.answers.get(0);
         }else{
-            Random rnd2 = new Random();
-            System.out.println(this.answers.size());
-            return this.answers.get((int) (rnd2.nextDouble()*this.answers.size()));
+            Random rnd2 = new Random(36884614);
+            System.out.println("size "+this.answers.size());
+            //System.out.println((int) (rnd2.nextDouble()*this.answers.size()-1)+1);
+            int posarray = (int) (rnd2.nextDouble()*this.answers.size()-1)+1;
+            System.out.println(posarray);
+            String a = this.answers.get(posarray);
+            this.answers.remove(posarray);
+            return a;
         }
 
     }
@@ -76,7 +82,7 @@ public class Question {
         if (this.answers.isEmpty()) {
             this.answers = new ArrayList<String>();
         }
-        this.answers.add(answer);
+        //this.answers.add(answer);
         if(isCorrect) {
             this.answers.add(0,answer);
         }else{
