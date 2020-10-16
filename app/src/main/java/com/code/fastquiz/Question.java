@@ -26,10 +26,6 @@ public class Question {
         return correct;
     }
 
-    public void setCorrect(int correct) {
-        this.correct = correct-1;
-    }
-
     public String getQuestion() {
         return question;
     }
@@ -54,14 +50,19 @@ public class Question {
         this.path = path;
     }
 
-    public List<String> getAnswers() {
-        return answers;
+    public String getAnswer(){
+        return this.answers.get(1);
     }
 
-    public void addAnswer(String answer) {
+    public void addAnswer(String answer,boolean isCorrect) {
         if (this.answers.isEmpty()) {
             this.answers = new ArrayList<String>();
         }
         this.answers.add(answer);
+        if(isCorrect) {
+            this.correct = this.answers.size();
+            System.out.println(this.answers.size());
+        }
+
     }
 }
