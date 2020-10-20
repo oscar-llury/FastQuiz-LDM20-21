@@ -11,17 +11,22 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
+ // ArrayList<Question> arrayQuestions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button startButton = findViewById(R.id.button_start_game);
+
         startButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
-                Intent activity = new Intent(getApplicationContext(),Game.class);
+               /* arrayQuestions = new ArrayList<Question>();
+                Initializer ini = new Initializer();
+                arrayQuestions = ini.getQuestion(5); */
+                Player p1 = new Player();
+                Intent activity = new Intent(MainActivity.this,Game.class);
+                // activity.putExtra("arrayQuestions", arrayQuestions);
                 startActivity(activity);
             }
         });

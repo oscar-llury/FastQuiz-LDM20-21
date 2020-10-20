@@ -1,70 +1,108 @@
 package com.code.fastquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Game extends AppCompatActivity {
-
+    private int score;
+    private Button answer1,answer2,answer3,answer4;
+    private Question question_to_show;
+    private ArrayList<Question> arrayQuestions;
+    private boolean checking;
+    private TextView question;
+    private Player player;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        // this.arrayQuestions = (ArrayList<Question>) getIntent().getSerializableExtra("arrayQuestions");
+        Initializer ini = new Initializer();
+        this.arrayQuestions = ini.getQuestion(5);
 
-        TextView question = findViewById(R.id.question_text);
-        Button answer1 = findViewById(R.id.button_answer1);
-        Button answer2 = findViewById(R.id.button_answer2);
-        Button answer3 = findViewById(R.id.button_answer3);
-        Button answer4 = findViewById(R.id.button_answer4);
+        this.player = new Player();
+        question = findViewById(R.id.question_text);
+        answer1 = findViewById(R.id.button_answer1);
+        answer2 = findViewById(R.id.button_answer2);
+        answer3 = findViewById(R.id.button_answer3);
+        answer4 = findViewById(R.id.button_answer4);
 
-        ArrayList<Question> list_questions = new ArrayList<Question>();
 
-        Question question1 = new Question("¿Cuál es la capital de Mongolia?");
-        question1.addAnswer("Estambul",false);
-        question1.addAnswer("Ulan Bator",true);
-        question1.addAnswer("Madrid",false);
-        question1.addAnswer("Tokio",false);
-        Question question2 = new Question("¿Quién escribió el Quijote?");
-        question2.addAnswer("Miguel de Unamuno",false);
-        question2.addAnswer("Federico García Lorca",false);
-        question2.addAnswer("Miguel de Cervantes",true);
-        question2.addAnswer("Gaspar Melchor de Jovellanos",false);
-        Question question3 = new Question("¿Quién descubrió América?");
-        question3.addAnswer("Cristiano Ronaldo",false);
-        question3.addAnswer("Messi",false);
-        question3.addAnswer("Cristóbal Colón",true);
-        question3.addAnswer("Hernán Cortés",false);
-        Question question4 = new Question("¿Cuándo acabó la 2º Guerra Mundial?");
-        question4.addAnswer("1936",false);
-        question4.addAnswer("1938",false);
-        question4.addAnswer("1942",false);
-        question4.addAnswer("1945",true);
-        Question question5 = new Question("¿Cuál es el océano más grande del mundo?");
-        question5.addAnswer("Pacífico",true);
-        question5.addAnswer("Índico",false);
-        question5.addAnswer("Atlántico",false);
-        question5.addAnswer("Antártico",false);
-
-        list_questions.add(question1);
-        list_questions.add(question2);
-        list_questions.add(question3);
-        list_questions.add(question4);
-
-        Random rnd = new Random(2582054);
-        Question question_to_show = list_questions.get((int) (rnd.nextDouble()*list_questions.size()));
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Random rnd = new Random(System.currentTimeMillis()*1000);
+        question_to_show = arrayQuestions.get((int) (rnd.nextDouble()*arrayQuestions.size()));
         question.setText(question_to_show.getQuestion());
 
         answer1.setText(question_to_show.getAnswer());
         answer2.setText(question_to_show.getAnswer());
         answer3.setText(question_to_show.getAnswer());
         answer4.setText(question_to_show.getAnswer());
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_answer1: {
+                checking = question_to_show.checkCorrectAnswer(1);
+                if (checking) {
+                    answer1.setBackgroundColor(Color.GREEN);
+
+                } else {
+                    answer1.setBackgroundColor(Color.RED);
+                }
+                break;
+            }
+            case R.id.button_answer2: {
+                checking = question_to_show.checkCorrectAnswer(2);
+                if (checking) {
+                    answer2.setBackgroundColor(Color.GREEN);
+                } else {
+                    answer2.setBackgroundColor(Color.RED);
+                }
+                break;
+            }
+            case R.id.button_answer3: {
+                checking = question_to_show.checkCorrectAnswer(3);
+                if (checking) {
+                    answer3.setBackgroundColor(Color.GREEN);
+                } else {
+                    answer3.setBackgroundColor(Color.RED);
+                }
+                break;
+            }
+            case R.id.button_answer4: {
+                checking = question_to_show.checkCorrectAnswer(4);
+                if (checking) {
+                    answer4.setBackgroundColor(Color.GREEN);
+                } else {
+                    answer4.setBackgroundColor(Color.RED);
+                }
+                break;
+            }
+        }
+            answer1.setEnabled(false);
+            answer2.setEnabled(false);
+            answer3.setEnabled(false);
+            answer4.setEnabled(false);
+            //this.arrayQuestions.remove(question_to_show);
+            if(checking){
+                this.player.increaseScore();
+            }else{
+                this.player.decreaseScore();
+            }
+        Toast.makeText(this, "Puntos totales: " + this.player.getScore(), Toast.LENGTH_SHORT).show();
+            Intent activity = new Intent(getApplicationContext(),Game.class);
+            startActivity(activity);
 
     }
 }

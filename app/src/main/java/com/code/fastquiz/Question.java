@@ -83,11 +83,14 @@ public class Question {
             this.answers = new ArrayList<String>();
         }
         //this.answers.add(answer);
-        if(isCorrect) {
-            this.answers.add(0,answer);
-        }else{
+        if (isCorrect) {
+            this.answers.add(0, answer);
+        } else {
             this.answers.add(answer);
         }
-
     }
+        public boolean checkCorrectAnswer(int numAnswer){
+        return numAnswer == this.correctPos;
+        }
+
 }
