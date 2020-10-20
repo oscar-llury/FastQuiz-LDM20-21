@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                /* arrayQuestions = new ArrayList<Question>();
                 Initializer ini = new Initializer();
                 arrayQuestions = ini.getQuestion(5); */
-
+                Player p1 = new Player();
                 Intent activity = new Intent(MainActivity.this,Game.class);
                 // activity.putExtra("arrayQuestions", arrayQuestions);
                 startActivity(activity);
