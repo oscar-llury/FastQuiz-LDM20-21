@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">FastQuiz</string>
+
+    <!-- activity_main -->
+    <string name="star_game">Comenzar juego</string>
 </resources>
