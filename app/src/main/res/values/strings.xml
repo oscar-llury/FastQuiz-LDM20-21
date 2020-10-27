@@ -3,4 +3,9 @@
 
     <!-- activity_main -->
     <string name="star_game">Comenzar juego</string>
+
+    <string name="wrong_answer_title">¿Quieres salir?</string>
+    <string name="wrong_answer_exit">Salir</string>
+    <string name="wrong_answer_continue">Continuar</string>
+
 </resources>
