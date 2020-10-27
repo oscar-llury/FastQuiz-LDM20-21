@@ -1,6 +1,9 @@
 package com.code.fastquiz;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,6 +23,7 @@ public class Game extends AppCompatActivity {
     private boolean checking;
     private TextView question;
     private Player player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +97,8 @@ public class Game extends AppCompatActivity {
             this.player.increaseScore();
         }else{
             this.player.decreaseScore();
+
+            showPopUp();
         }
         Toast.makeText(this, "Puntos totales: " + this.player.getScore(), Toast.LENGTH_SHORT).show();
 
@@ -104,31 +109,56 @@ public class Game extends AppCompatActivity {
     }
 
     private void playGame(){
-        Random rnd = new Random(System.currentTimeMillis()*1000);
-        question_to_show = arrayQuestions.get((int) (rnd.nextDouble()*arrayQuestions.size()));
 
-        answer1.setBackgroundColor(Color.GRAY);
-        answer2.setBackgroundColor(Color.GRAY);
-        answer3.setBackgroundColor(Color.GRAY);
-        answer4.setBackgroundColor(Color.GRAY);
-        question.setText(question_to_show.getQuestion());
+        if(this.arrayQuestions.size()>0) {
+            Random rnd = new Random(System.currentTimeMillis() * 1000);
+            question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-        System.out.println("intro sleep");
-        SystemClock.sleep(2000);
-        System.out.println("out sleep");
+            answer1.setBackgroundColor(Color.GRAY);
+            answer2.setBackgroundColor(Color.GRAY);
+            answer3.setBackgroundColor(Color.GRAY);
+            answer4.setBackgroundColor(Color.GRAY);
+            question.setText(question_to_show.getQuestion());
 
-        answer1.setText(question_to_show.getAnswer());
-        answer2.setText(question_to_show.getAnswer());
-        answer3.setText(question_to_show.getAnswer());
-        answer4.setText(question_to_show.getAnswer());
+            System.out.println("intro sleep");
+            SystemClock.sleep(2000);
+            System.out.println("out sleep");
 
-        answer1.setEnabled(true);
-        answer2.setEnabled(true);
-        answer3.setEnabled(true);
-        answer4.setEnabled(true);
+            answer1.setText(question_to_show.getAnswer());
+            answer2.setText(question_to_show.getAnswer());
+            answer3.setText(question_to_show.getAnswer());
+            answer4.setText(question_to_show.getAnswer());
 
-
-
+            answer1.setEnabled(true);
+            answer2.setEnabled(true);
+            answer3.setEnabled(true);
+            answer4.setEnabled(true);
+        }else{
+            initScoreActivity();
+        }
     }
 
+    public Dialog showPopUp() {
+        androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+        popUp.setTitle(R.string.wrong_answer_title)
+                .setMessage("Respuesta errónea. Tienes "+this.player.getScore()+" puntos.")
+                .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        initScoreActivity();
+                    }
+                });
+        return popUp.show();
+    }
+
+    private void initScoreActivity(){
+        //star activitie score
+        //pput extra de score como int
+        Intent activity = new Intent(Game.this,Score.class);
+        startActivity(activity);
+    }
 }
