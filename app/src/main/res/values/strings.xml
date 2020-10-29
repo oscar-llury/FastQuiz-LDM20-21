@@ -8,4 +8,10 @@
     <string name="wrong_answer_exit">Salir</string>
     <string name="wrong_answer_continue">Continuar</string>
 
+    <!-- activity_finalscore -->
+    <string name="score">Score: </string>
+    <string name="your_score">Here is your score:</string>
+    <string name="menu">Volver a Empezar</string>
+    <string name="popUpCorrect">Has acertado! \n</string>
+    <string name="popUpIncorrect">Respuesta errónea. \n</string>
 </resources>
