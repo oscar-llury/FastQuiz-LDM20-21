@@ -58,7 +58,7 @@ public class Question {
     public String getAnswer(){
         if(this.contShownAnswers == 0){
             Random rnd = new Random(36316481);
-            this.correctPos = (int) (rnd.nextDouble()*4)+1;
+            this.correctPos = (int) (rnd.nextDouble()*4);
             System.out.println("correctPos "+correctPos);
         }
         this.contShownAnswers = this.contShownAnswers+1;
