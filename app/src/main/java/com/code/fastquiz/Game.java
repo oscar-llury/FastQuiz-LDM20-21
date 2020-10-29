@@ -23,6 +23,7 @@ public class Game extends AppCompatActivity {
     private boolean checking;
     private TextView question;
     private Player player;
+    private TextView scoreView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,8 @@ public class Game extends AppCompatActivity {
         answer2 = findViewById(R.id.button_answer2);
         answer3 = findViewById(R.id.button_answer3);
         answer4 = findViewById(R.id.button_answer4);
-
+        scoreView = (TextView)findViewById(R.id.score);
+        scoreView.setText("0");
     }
     @Override
     public void onStart() {
@@ -98,13 +100,13 @@ public class Game extends AppCompatActivity {
         }else{
             this.player.decreaseScore();
 
-            showPopUp();
         }
         Toast.makeText(this, "Puntos totales: " + this.player.getScore(), Toast.LENGTH_SHORT).show();
+        updateScore(this.player.getScore());
+        showPopUp(checking);
+        //SystemClock.sleep(2000);
 
-        SystemClock.sleep(2000);
-
-        playGame();
+        //playGame();
 
     }
 
@@ -121,7 +123,7 @@ public class Game extends AppCompatActivity {
             question.setText(question_to_show.getQuestion());
 
             System.out.println("intro sleep");
-            SystemClock.sleep(2000);
+            // SystemClock.sleep(2000);
             System.out.println("out sleep");
 
             answer1.setText(question_to_show.getAnswer());
@@ -138,12 +140,19 @@ public class Game extends AppCompatActivity {
         }
     }
 
-    public Dialog showPopUp() {
+    public Dialog showPopUp(boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+        String popUpText;
+        if(correct) {
+            popUpText = getString(R.string.popUpCorrect);
+        }else{
+            popUpText = getString(R.string.popUpIncorrect);
+        }
         popUp.setTitle(R.string.wrong_answer_title)
-                .setMessage("Respuesta errónea. Tienes "+this.player.getScore()+" puntos.")
+                .setMessage(popUpText + "Tienes "+this.player.getScore()+" puntos.")
                 .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        playGame();
                         dialog.cancel();
                     }
                 })
@@ -156,9 +165,14 @@ public class Game extends AppCompatActivity {
     }
 
     private void initScoreActivity(){
-        //star activitie score
-        //pput extra de score como int
-        Intent activity = new Intent(Game.this,Score.class);
+        //star activity score
+        Intent activity = new Intent(Game.this,FinalScore.class);
+        activity.putExtra("score", this.player.getScore());
         startActivity(activity);
+    }
+    private void updateScore(int score){
+        if(score<=0)
+            initScoreActivity();
+        scoreView.setText("" + score);
     }
 }
