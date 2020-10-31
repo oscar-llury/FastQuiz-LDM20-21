@@ -31,16 +31,16 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         // this.arrayQuestions = (ArrayList<Question>) getIntent().getSerializableExtra("arrayQuestions");
         Initializer ini = new Initializer();
-        arrayQuestions = ini.getQuestion(5);
+        this.arrayQuestions = ini.getQuestion(5);
 
-        player = new Player();
-        question = findViewById(R.id.question_text);
-        answer1 = findViewById(R.id.button_answer1);
-        answer2 = findViewById(R.id.button_answer2);
-        answer3 = findViewById(R.id.button_answer3);
-        answer4 = findViewById(R.id.button_answer4);
-        scoreView = (TextView)findViewById(R.id.score);
-        scoreView.setText("0");
+        this.player = new Player();
+        this.question = findViewById(R.id.question_text);
+        this.answer1 = findViewById(R.id.button_answer1);
+        this.answer2 = findViewById(R.id.button_answer2);
+        this.answer3 = findViewById(R.id.button_answer3);
+        this.answer4 = findViewById(R.id.button_answer4);
+        this.scoreView = (TextView)findViewById(R.id.score);
+        updateScore();
     }
     @Override
     public void onStart() {
@@ -101,13 +101,9 @@ public class Game extends AppCompatActivity {
             this.player.decreaseScore();
 
         }
-        Toast.makeText(this, "Puntos totales: " + this.player.getScore(), Toast.LENGTH_SHORT).show();
-        updateScore(this.player.getScore());
+        updateScore();
         showPopUp(checking);
         //SystemClock.sleep(2000);
-
-        //playGame();
-
     }
 
     private void playGame(){
@@ -116,10 +112,11 @@ public class Game extends AppCompatActivity {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-            answer1.setBackgroundColor(Color.GRAY);
-            answer2.setBackgroundColor(Color.GRAY);
-            answer3.setBackgroundColor(Color.GRAY);
-            answer4.setBackgroundColor(Color.GRAY);
+            //answer1.setBackgroundColor(getResources().getColor(R.color.textColor));
+            answer1.setBackgroundColor(R.drawable.button_answer);
+            answer2.setBackgroundColor(R.drawable.button_answer);
+            answer3.setBackgroundColor(R.drawable.button_answer);
+            answer4.setBackgroundColor(R.drawable.button_answer);
             question.setText(question_to_show.getQuestion());
 
             System.out.println("intro sleep");
@@ -142,37 +139,50 @@ public class Game extends AppCompatActivity {
 
     public Dialog showPopUp(boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        String popUpText;
-        if(correct) {
-            popUpText = getString(R.string.popUpCorrect);
+        String popUpTitle;
+        if(this.player.getScore()>0) {
+            if (correct) {
+                popUpTitle = getString(R.string.popUpCorrect);
+            } else {
+                popUpTitle = getString(R.string.popUpIncorrect);
+            }
+            popUp.setTitle(popUpTitle)
+                    .setMessage("Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
+                    .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            playGame();
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            initScoreActivity();
+                        }
+                    });
         }else{
-            popUpText = getString(R.string.popUpIncorrect);
-        }
-        popUp.setTitle(R.string.wrong_answer_title)
-                .setMessage(popUpText + "Tienes "+this.player.getScore()+" puntos.")
-                .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        playGame();
-                        dialog.cancel();
-                    }
-                })
+            popUp.setTitle(R.string.popUpOver)
+                .setMessage("No tienes puntos para poder seguir jugando")
                 .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         initScoreActivity();
                     }
                 });
+        }
         return popUp.show();
     }
 
     private void initScoreActivity(){
-        //star activity score
         Intent activity = new Intent(Game.this,FinalScore.class);
         activity.putExtra("score", this.player.getScore());
         startActivity(activity);
     }
-    private void updateScore(int score){
-        if(score<=0)
-            initScoreActivity();
-        scoreView.setText("" + score);
+
+    private void updateScore(){
+        int score = this.player.getScore();
+        if(score >0){
+            this.scoreView.setText(""+score);
+        }else{
+            this.scoreView.setText("0");
+        }
     }
 }

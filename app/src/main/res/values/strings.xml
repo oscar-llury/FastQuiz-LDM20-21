@@ -4,14 +4,15 @@
     <!-- activity_main -->
     <string name="star_game">Comenzar juego</string>
 
-    <string name="wrong_answer_title">¿Quieres salir?</string>
+    <string name="answer_text">¿Deseas continuar?</string>
     <string name="wrong_answer_exit">Salir</string>
     <string name="wrong_answer_continue">Continuar</string>
+    <string name="popUpCorrect">Has acertado!</string>
+    <string name="popUpIncorrect">Respuesta errónea.</string>
+    <string name="popUpOver">Game Over.</string>
 
     <!-- activity_finalscore -->
     <string name="score">Score: </string>
     <string name="your_score">Here is your score:</string>
     <string name="menu">Volver a Empezar</string>
-    <string name="popUpCorrect">Has acertado! \n</string>
-    <string name="popUpIncorrect">Respuesta errónea. \n</string>
 </resources>
