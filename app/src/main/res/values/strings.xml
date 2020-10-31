@@ -17,6 +17,9 @@
     <string name="answer_text">¿Deseas continuar?</string>
     <string name="score">Score: </string>
     <string name="question_count">preguntas</string>
+    <string name="desciption_image">Question image</string>
+
+    <!-- activity_game popUp-->
     <string name="wrong_answer_exit">Salir</string>
     <string name="wrong_answer_continue">Continuar</string>
     <string name="popUpCorrect">Has acertado!</string>
@@ -24,6 +27,7 @@
     <string name="popUpOver">Game Over!</string>
     <string name="popOverr">No tienes puntos para poder seguir jugando</string>
     <string name="popFinish">Enhorabuena, has respondido correstamente a todas las preguntas. Hasta pronto!</string>
+
 
     <!-- activity_finalscore -->
     <string name="your_score">Esta es tu puntuación:</string>

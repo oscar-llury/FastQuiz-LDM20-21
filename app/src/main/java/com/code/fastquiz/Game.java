@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Game extends AppCompatActivity {
     private TextView question;
     private Player player;
     private TextView scoreView, questions_count;
+    private ImageView image_question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class Game extends AppCompatActivity {
         this.answer4 = findViewById(R.id.button_answer4);
         this.scoreView = (TextView)findViewById(R.id.score);
         this.questions_count = (TextView)findViewById(R.id.questions_count);
+        this.image_question = findViewById(R.id.imageView_question);
         updateScore();
     }
     @Override
@@ -108,6 +111,7 @@ public class Game extends AppCompatActivity {
         answer2.setEnabled(false);
         answer3.setEnabled(false);
         answer4.setEnabled(false);
+        image_question.setVisibility(View.GONE);
 
         this.num_questions_count ++;
         this.arrayQuestions.remove(question_to_show);
@@ -135,6 +139,12 @@ public class Game extends AppCompatActivity {
             answer3.setBackgroundColor(R.drawable.button_answer);
             answer4.setBackgroundColor(R.drawable.button_answer);
             question.setText(question_to_show.getQuestion());
+
+            if(this.questions_with_images) {
+                image_question.setVisibility(View.VISIBLE);
+                //poner el path de la imagen
+                //image_question.setImageResource(R.drawable.imagen_test);
+            }
 
             System.out.println("intro sleep");
             // SystemClock.sleep(2000);
