@@ -2,10 +2,16 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -26,6 +32,9 @@ public class Game extends AppCompatActivity {
     private Player player;
     private TextView scoreView, questions_count;
     private ImageView imageView_question;
+    private TextView scoreView;
+    private ImageView questionView;
+    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +158,11 @@ public class Game extends AppCompatActivity {
             System.out.println("intro sleep");
             // SystemClock.sleep(2000);
             System.out.println("out sleep");
-
+            if (question_to_show.isImage()) {
+                String questionPath = this.question_to_show.getPath();
+                questionView.setVisibility(ImageView.VISIBLE);
+                questionView.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
+            }
             answer1.setText(question_to_show.getAnswer());
             answer2.setText(question_to_show.getAnswer());
             answer3.setText(question_to_show.getAnswer());

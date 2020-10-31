@@ -24,6 +24,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/questionImage"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginBottom="36dp"
+        android:contentDescription="TODO"
+        android:cropToPadding="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button_answer1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
     <TextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
