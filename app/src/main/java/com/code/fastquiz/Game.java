@@ -2,14 +2,21 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -24,6 +31,8 @@ public class Game extends AppCompatActivity {
     private TextView question;
     private Player player;
     private TextView scoreView;
+    private ImageView questionView;
+    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,7 @@ public class Game extends AppCompatActivity {
         answer4 = findViewById(R.id.button_answer4);
         scoreView = (TextView)findViewById(R.id.score);
         scoreView.setText("0");
+        questionView = (ImageView) findViewById(R.id.questionImage);
     }
     @Override
     public void onStart() {
@@ -115,7 +125,6 @@ public class Game extends AppCompatActivity {
         if(this.arrayQuestions.size()>0) {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
-
             answer1.setBackgroundColor(Color.GRAY);
             answer2.setBackgroundColor(Color.GRAY);
             answer3.setBackgroundColor(Color.GRAY);
@@ -125,7 +134,11 @@ public class Game extends AppCompatActivity {
             System.out.println("intro sleep");
             // SystemClock.sleep(2000);
             System.out.println("out sleep");
-
+            if (question_to_show.isImage()) {
+                String questionPath = this.question_to_show.getPath();
+                questionView.setVisibility(ImageView.VISIBLE);
+                questionView.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
+            }
             answer1.setText(question_to_show.getAnswer());
             answer2.setText(question_to_show.getAnswer());
             answer3.setText(question_to_show.getAnswer());
