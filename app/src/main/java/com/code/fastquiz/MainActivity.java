@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private  RadioGroup question_group;
+    private  RadioGroup question_group, question_images;
     private RadioButton radioBut_question;
 
     @Override
@@ -25,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
 
         Button startButton = findViewById(R.id.button_start_game);
         question_group = (RadioGroup) findViewById(R.id.radioGroup_question);
+        question_images = (RadioGroup) findViewById(R.id.radioGroup_images);
 
         startButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
                 int selectedRadioButt = question_group.getCheckedRadioButtonId();
 
-                radioBut_question = (RadioButton) findViewById(selectedRadioButt);
                 int mode;
                 if(selectedRadioButt==R.id.radioButton_5){
                     mode = 1;
@@ -40,9 +40,20 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     mode = 0;
                 }
+                selectedRadioButt = question_images.getCheckedRadioButtonId();
+
+                int images;
+                if(selectedRadioButt==R.id.radioButton_si){
+                    images = 1;
+                }else if (selectedRadioButt==R.id.radioButton_no){
+                    images = 2;
+                }else{
+                    images = 0;
+                }
 
                 Intent activity = new Intent(MainActivity.this,Game.class);
                 activity.putExtra("mode", mode);
+                activity.putExtra("images", images);
                 startActivity(activity);
             }
         });

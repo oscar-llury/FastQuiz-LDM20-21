@@ -20,7 +20,7 @@ public class Game extends AppCompatActivity {
     private Button answer1,answer2,answer3,answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
-    private boolean checking;
+    private boolean checking, questions_with_images;
     private TextView question;
     private Player player;
     private TextView scoreView, questions_count;
@@ -32,6 +32,7 @@ public class Game extends AppCompatActivity {
 
         Intent mIntent = getIntent();
         int playerMode = mIntent.getIntExtra("mode", 0);
+        int images = mIntent.getIntExtra("images", 0);
 
         if(playerMode==1){
             this.total_questions = 1;
@@ -40,6 +41,8 @@ public class Game extends AppCompatActivity {
         }else{
             //finalizar juego
         }
+        this.questions_with_images = images==1;
+        //Toast.makeText(this, "Puntos totales: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
 
         Initializer ini = new Initializer();
 
