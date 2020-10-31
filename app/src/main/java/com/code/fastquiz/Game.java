@@ -16,23 +16,35 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game extends AppCompatActivity {
-    private int score;
+    private int total_questions, num_questions_count;
     private Button answer1,answer2,answer3,answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
     private boolean checking;
     private TextView question;
     private Player player;
-    private TextView scoreView;
+    private TextView scoreView, questions_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        // this.arrayQuestions = (ArrayList<Question>) getIntent().getSerializableExtra("arrayQuestions");
-        Initializer ini = new Initializer();
-        this.arrayQuestions = ini.getQuestion(5);
 
+        Intent mIntent = getIntent();
+        int playerMode = mIntent.getIntExtra("mode", 0);
+
+        if(playerMode==1){
+            this.total_questions = 1;
+        }else if(playerMode==2){
+            this.total_questions = 5;
+        }else{
+            //finalizar juego
+        }
+
+        Initializer ini = new Initializer();
+
+        this.num_questions_count = 0;
+        this.arrayQuestions = ini.getQuestion(this.total_questions);
         this.player = new Player();
         this.question = findViewById(R.id.question_text);
         this.answer1 = findViewById(R.id.button_answer1);
@@ -40,6 +52,7 @@ public class Game extends AppCompatActivity {
         this.answer3 = findViewById(R.id.button_answer3);
         this.answer4 = findViewById(R.id.button_answer4);
         this.scoreView = (TextView)findViewById(R.id.score);
+        this.questions_count = (TextView)findViewById(R.id.questions_count);
         updateScore();
     }
     @Override
@@ -93,6 +106,7 @@ public class Game extends AppCompatActivity {
         answer3.setEnabled(false);
         answer4.setEnabled(false);
 
+        this.num_questions_count ++;
         this.arrayQuestions.remove(question_to_show);
 
         if(checking){
@@ -140,7 +154,7 @@ public class Game extends AppCompatActivity {
     public Dialog showPopUp(boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         String popUpTitle;
-        if(this.player.getScore()>0) {
+        if(this.player.getScore()>0 && this.num_questions_count<this.total_questions) {
             if (correct) {
                 popUpTitle = getString(R.string.popUpCorrect);
             } else {
@@ -160,8 +174,16 @@ public class Game extends AppCompatActivity {
                         }
                     });
         }else{
-            popUp.setTitle(R.string.popUpOver)
-                .setMessage("No tienes puntos para poder seguir jugando")
+            String tittle,text;
+            if(correct && this.num_questions_count>=this.total_questions){
+                tittle = getString(R.string.finalTittle);
+                text = getString(R.string.popFinish);
+            }else{
+                tittle = getString(R.string.popUpOver);
+                text = getString(R.string.popOverr);
+            }
+            popUp.setTitle(tittle)
+                .setMessage(text)
                 .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         initScoreActivity();
@@ -181,8 +203,10 @@ public class Game extends AppCompatActivity {
         int score = this.player.getScore();
         if(score >0){
             this.scoreView.setText(""+score);
+
         }else{
             this.scoreView.setText("0");
         }
+        this.questions_count.setText(this.num_questions_count+"/"+this.total_questions);
     }
 }
