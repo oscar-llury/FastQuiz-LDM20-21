@@ -22,7 +22,7 @@ public class FinalScore extends AppCompatActivity {
             score.setText("0");
         else score.setText(Integer.toString(playerScore));
 
-        menu = (Button) findViewById(R.id.menu);
+        menu = (Button) findViewById(R.id.button_start_game);
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
