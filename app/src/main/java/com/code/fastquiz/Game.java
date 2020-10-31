@@ -25,7 +25,7 @@ public class Game extends AppCompatActivity {
     private TextView question;
     private Player player;
     private TextView scoreView, questions_count;
-    private ImageView image_question;
+    private ImageView imageView_question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class Game extends AppCompatActivity {
             //finalizar juego
         }
         this.questions_with_images = images==1;
-        //Toast.makeText(this, "Puntos totales: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
 
         Initializer ini = new Initializer();
 
@@ -58,7 +58,7 @@ public class Game extends AppCompatActivity {
         this.answer4 = findViewById(R.id.button_answer4);
         this.scoreView = (TextView)findViewById(R.id.score);
         this.questions_count = (TextView)findViewById(R.id.questions_count);
-        this.image_question = findViewById(R.id.imageView_question);
+        this.imageView_question = findViewById(R.id.imageView_question);
         updateScore();
     }
     @Override
@@ -111,7 +111,7 @@ public class Game extends AppCompatActivity {
         answer2.setEnabled(false);
         answer3.setEnabled(false);
         answer4.setEnabled(false);
-        image_question.setVisibility(View.GONE);
+        imageView_question.setVisibility(View.GONE);
 
         this.num_questions_count ++;
         this.arrayQuestions.remove(question_to_show);
@@ -140,8 +140,8 @@ public class Game extends AppCompatActivity {
             answer4.setBackgroundColor(R.drawable.button_answer);
             question.setText(question_to_show.getQuestion());
 
-            if(this.questions_with_images) {
-                image_question.setVisibility(View.VISIBLE);
+            if(this.questions_with_images && this.question_to_show.isImage()) {
+                imageView_question.setVisibility(View.VISIBLE);
                 //poner el path de la imagen
                 //image_question.setImageResource(R.drawable.imagen_test);
             }

@@ -112,22 +112,15 @@
                 android:text="@string/star_image_text"
                 android:textColor="@color/textColor" />
 
-            <RadioButton
-                android:id="@+id/radioButton_no"
+                <!--android.support.v7.widget.SwitchCompat-->
+            <Switch
+                android:id="@+id/switch_images"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/textColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/image_no"
-                android:textColor="@color/textColor" />
+                android:text="@string/with_image" />
 
-            <RadioButton
-                android:id="@+id/radioButton_si"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/image_si"
-                android:textColor="@color/textColor" />
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

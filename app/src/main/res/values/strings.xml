@@ -8,10 +8,8 @@
     <string name="star_questions_text">Selecciona el modo de juego:</string>
     <string name="mode_5">Corto: 5 preguntas</string>
     <string name="mode_complete">Completo: todas las preguntas</string>
-    <string name="star_image_text">Selecciona el tipo de preguntas:</string>
-    <string name="image_si">Con imágenes</string>
-    <string name="image_no">Sin imágenes</string>
-
+    <string name="star_image_text">Elige el tipo de preguntas:</string>
+    <string name="with_image">con imágenes</string>
 
     <!-- activity_game -->
     <string name="answer_text">¿Deseas continuar?</string>
