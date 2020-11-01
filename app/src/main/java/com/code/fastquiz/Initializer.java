@@ -97,6 +97,11 @@ public class Initializer extends AppCompatActivity {
             return null;
         }
     }
+
+    public int init_size(){
+        return this.list_questions.size();
+    }
+
 }
 
 

@@ -23,34 +23,50 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game extends AppCompatActivity {
-    private int score;
+    private int total_questions, num_questions_count;
     private Button answer1,answer2,answer3,answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
-    private boolean checking;
+    private boolean checking, questions_with_images;
     private TextView question;
     private Player player;
-    private TextView scoreView;
-    private ImageView questionView;
+    private TextView scoreView, questions_count;
+    private ImageView imageView_question;
     private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        // this.arrayQuestions = (ArrayList<Question>) getIntent().getSerializableExtra("arrayQuestions");
-        Initializer ini = new Initializer();
-        arrayQuestions = ini.getQuestion(5);
 
-        player = new Player();
-        question = findViewById(R.id.question_text);
-        answer1 = findViewById(R.id.button_answer1);
-        answer2 = findViewById(R.id.button_answer2);
-        answer3 = findViewById(R.id.button_answer3);
-        answer4 = findViewById(R.id.button_answer4);
-        scoreView = (TextView)findViewById(R.id.score);
-        scoreView.setText("0");
-        questionView = (ImageView) findViewById(R.id.questionImage);
+        Intent mIntent = getIntent();
+        int playerMode = mIntent.getIntExtra("mode", 0);
+        int images = mIntent.getIntExtra("images", 0);
+
+        Initializer ini = new Initializer();
+
+        if(playerMode==1){
+            this.total_questions = 5;
+        }else if(playerMode==2){
+            this.total_questions = ini.init_size();
+        }else{
+            //finalizar juego
+        }
+        this.questions_with_images = images==1;
+        //Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
+
+        this.num_questions_count = 0;
+        this.arrayQuestions = ini.getQuestion(this.total_questions);
+        this.player = new Player();
+        this.question = findViewById(R.id.question_text);
+        this.answer1 = findViewById(R.id.button_answer1);
+        this.answer2 = findViewById(R.id.button_answer2);
+        this.answer3 = findViewById(R.id.button_answer3);
+        this.answer4 = findViewById(R.id.button_answer4);
+        this.scoreView = (TextView)findViewById(R.id.score);
+        this.questions_count = (TextView)findViewById(R.id.questions_count);
+        this.imageView_question = findViewById(R.id.imageView_question);
+        updateScore();
     }
     @Override
     public void onStart() {
@@ -102,7 +118,9 @@ public class Game extends AppCompatActivity {
         answer2.setEnabled(false);
         answer3.setEnabled(false);
         answer4.setEnabled(false);
+        imageView_question.setVisibility(View.GONE);
 
+        this.num_questions_count ++;
         this.arrayQuestions.remove(question_to_show);
 
         if(checking){
@@ -111,13 +129,9 @@ public class Game extends AppCompatActivity {
             this.player.decreaseScore();
 
         }
-        Toast.makeText(this, "Puntos totales: " + this.player.getScore(), Toast.LENGTH_SHORT).show();
-        updateScore(this.player.getScore());
+        updateScore();
         showPopUp(checking);
         //SystemClock.sleep(2000);
-
-        //playGame();
-
     }
 
     private void playGame(){
@@ -125,20 +139,27 @@ public class Game extends AppCompatActivity {
         if(this.arrayQuestions.size()>0) {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
-            answer1.setBackgroundColor(Color.GRAY);
-            answer2.setBackgroundColor(Color.GRAY);
-            answer3.setBackgroundColor(Color.GRAY);
-            answer4.setBackgroundColor(Color.GRAY);
+
+            //answer1.setBackgroundColor(getResources().getColor(R.color.textColor));
+            answer1.setBackgroundColor(R.drawable.button_answer);
+            answer2.setBackgroundColor(R.drawable.button_answer);
+            answer3.setBackgroundColor(R.drawable.button_answer);
+            answer4.setBackgroundColor(R.drawable.button_answer);
             question.setText(question_to_show.getQuestion());
+
+            if(this.questions_with_images && this.question_to_show.isImage()) {
+                imageView_question.setVisibility(View.VISIBLE);
+                //poner el path de la imagen
+                //image_question.setImageResource(R.drawable.imagen_test);
+                String questionPath = this.question_to_show.getPath();
+                imageView_question.setVisibility(ImageView.VISIBLE);
+                imageView_question.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
+            }
 
             System.out.println("intro sleep");
             // SystemClock.sleep(2000);
             System.out.println("out sleep");
-            if (question_to_show.isImage()) {
-                String questionPath = this.question_to_show.getPath();
-                questionView.setVisibility(ImageView.VISIBLE);
-                questionView.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
-            }
+
             answer1.setText(question_to_show.getAnswer());
             answer2.setText(question_to_show.getAnswer());
             answer3.setText(question_to_show.getAnswer());
@@ -155,37 +176,60 @@ public class Game extends AppCompatActivity {
 
     public Dialog showPopUp(boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        String popUpText;
-        if(correct) {
-            popUpText = getString(R.string.popUpCorrect);
+        String popUpTitle;
+        if(this.player.getScore()>0 && this.num_questions_count<this.total_questions) {
+            if (correct) {
+                popUpTitle = getString(R.string.popUpCorrect);
+            } else {
+                popUpTitle = getString(R.string.popUpIncorrect);
+            }
+            popUp.setTitle(popUpTitle)
+                    .setMessage("Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
+                    .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            playGame();
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            initScoreActivity();
+                        }
+                    });
         }else{
-            popUpText = getString(R.string.popUpIncorrect);
-        }
-        popUp.setTitle(R.string.wrong_answer_title)
-                .setMessage(popUpText + "Tienes "+this.player.getScore()+" puntos.")
-                .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        playGame();
-                        dialog.cancel();
-                    }
-                })
+            String tittle,text;
+            if(correct && this.num_questions_count>=this.total_questions){
+                tittle = getString(R.string.finalTittle);
+                text = getString(R.string.popFinish);
+            }else{
+                tittle = getString(R.string.popUpOver);
+                text = getString(R.string.popOverr);
+            }
+            popUp.setTitle(tittle)
+                .setMessage(text)
                 .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         initScoreActivity();
                     }
                 });
+        }
         return popUp.show();
     }
 
     private void initScoreActivity(){
-        //star activity score
         Intent activity = new Intent(Game.this,FinalScore.class);
         activity.putExtra("score", this.player.getScore());
         startActivity(activity);
     }
-    private void updateScore(int score){
-        if(score<=0)
-            initScoreActivity();
-        scoreView.setText("" + score);
+
+    private void updateScore(){
+        int score = this.player.getScore();
+        if(score >0){
+            this.scoreView.setText(""+score);
+
+        }else{
+            this.scoreView.setText("0");
+        }
+        this.questions_count.setText(this.num_questions_count+"/"+this.total_questions);
     }
 }

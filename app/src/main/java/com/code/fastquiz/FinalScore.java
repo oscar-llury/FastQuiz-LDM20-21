@@ -20,9 +20,10 @@ public class FinalScore extends AppCompatActivity {
         int playerScore = mIntent.getIntExtra("score", 0);
         if(playerScore<=0)
             score.setText("0");
-        else score.setText(Integer.toString(playerScore));
+        else
+            score.setText(Integer.toString(playerScore));
 
-        menu = (Button) findViewById(R.id.menu);
+        menu = (Button) findViewById(R.id.button_start_game);
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
