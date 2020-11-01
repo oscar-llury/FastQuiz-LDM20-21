@@ -52,7 +52,7 @@ public class Question {
     }
 
     public void setPath(String path) {
-        this.path = path;
+        this.path = "R.drawable" + path;
     }
 
     public String getAnswer(){

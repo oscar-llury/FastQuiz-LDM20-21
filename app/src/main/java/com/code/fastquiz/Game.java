@@ -2,10 +2,16 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -26,6 +32,7 @@ public class Game extends AppCompatActivity {
     private Player player;
     private TextView scoreView, questions_count;
     private ImageView imageView_question;
+    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +43,17 @@ public class Game extends AppCompatActivity {
         int playerMode = mIntent.getIntExtra("mode", 0);
         int images = mIntent.getIntExtra("images", 0);
 
+        Initializer ini = new Initializer();
+
         if(playerMode==1){
-            this.total_questions = 1;
-        }else if(playerMode==2){
             this.total_questions = 5;
+        }else if(playerMode==2){
+            this.total_questions = ini.init_size();
         }else{
             //finalizar juego
         }
         this.questions_with_images = images==1;
-        Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
-
-        Initializer ini = new Initializer();
+        //Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
 
         this.num_questions_count = 0;
         this.arrayQuestions = ini.getQuestion(this.total_questions);
@@ -144,6 +151,9 @@ public class Game extends AppCompatActivity {
                 imageView_question.setVisibility(View.VISIBLE);
                 //poner el path de la imagen
                 //image_question.setImageResource(R.drawable.imagen_test);
+                String questionPath = this.question_to_show.getPath();
+                imageView_question.setVisibility(ImageView.VISIBLE);
+                imageView_question.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
             }
 
             System.out.println("intro sleep");
