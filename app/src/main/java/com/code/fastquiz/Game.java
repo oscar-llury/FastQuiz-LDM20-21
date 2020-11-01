@@ -32,8 +32,6 @@ public class Game extends AppCompatActivity {
     private Player player;
     private TextView scoreView, questions_count;
     private ImageView imageView_question;
-    private TextView scoreView;
-    private ImageView questionView;
     private Resources resources;
 
     @Override
@@ -45,17 +43,17 @@ public class Game extends AppCompatActivity {
         int playerMode = mIntent.getIntExtra("mode", 0);
         int images = mIntent.getIntExtra("images", 0);
 
+        Initializer ini = new Initializer();
+
         if(playerMode==1){
-            this.total_questions = 1;
-        }else if(playerMode==2){
             this.total_questions = 5;
+        }else if(playerMode==2){
+            this.total_questions = ini.init_size();
         }else{
             //finalizar juego
         }
         this.questions_with_images = images==1;
-        Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
-
-        Initializer ini = new Initializer();
+        //Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
 
         this.num_questions_count = 0;
         this.arrayQuestions = ini.getQuestion(this.total_questions);
@@ -153,16 +151,15 @@ public class Game extends AppCompatActivity {
                 imageView_question.setVisibility(View.VISIBLE);
                 //poner el path de la imagen
                 //image_question.setImageResource(R.drawable.imagen_test);
+                String questionPath = this.question_to_show.getPath();
+                imageView_question.setVisibility(ImageView.VISIBLE);
+                imageView_question.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
             }
 
             System.out.println("intro sleep");
             // SystemClock.sleep(2000);
             System.out.println("out sleep");
-            if (question_to_show.isImage()) {
-                String questionPath = this.question_to_show.getPath();
-                questionView.setVisibility(ImageView.VISIBLE);
-                questionView.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
-            }
+
             answer1.setText(question_to_show.getAnswer());
             answer2.setText(question_to_show.getAnswer());
             answer3.setText(question_to_show.getAnswer());

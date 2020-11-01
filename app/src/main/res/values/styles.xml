@@ -11,7 +11,7 @@
         <item name="android:textColor">@color/textColor</item>
 
         <!-- mobile notification bar -->
-        <item name="colorPrimaryDark">@color/background</item>
+        <item name="colorPrimaryDark">@color/MenuColor</item>
 
         <!-- background -->
         <item name="android:windowBackground">@color/background</item>
