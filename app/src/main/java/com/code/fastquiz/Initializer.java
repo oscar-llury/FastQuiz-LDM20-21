@@ -2,9 +2,10 @@ package com.code.fastquiz;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Esta clase como almacenamiento persistente de datos
@@ -84,15 +85,15 @@ public class Initializer extends AppCompatActivity {
         question13.addAnswer("Mongolia", true);
         question13.addAnswer("China", false);
         Question question14 = new Question("¿A qué empresa pertenece este logo?",true,"logomc");
-        question13.addAnswer("Burger King", false);
-        question13.addAnswer("McDonalds", true);
-        question13.addAnswer("KFC", false);
-        question13.addAnswer("Taco Bell", false);
+        question14.addAnswer("Burger King", false);
+        question14.addAnswer("McDonalds", true);
+        question14.addAnswer("KFC", false);
+        question14.addAnswer("Taco Bell", false);
         Question question15 = new Question("¿A qué empresa pertenece este logo?",true,"adidas");
-        question13.addAnswer("Nike", false);
-        question13.addAnswer("Reebok", false);
-        question13.addAnswer("New Balance", false);
-        question13.addAnswer("Adidas", true);
+        question15.addAnswer("Nike", false);
+        question15.addAnswer("Reebok", false);
+        question15.addAnswer("New Balance", false);
+        question15.addAnswer("Adidas", true);
 
 
         this.list_questions.add(question1);
@@ -112,12 +113,23 @@ public class Initializer extends AppCompatActivity {
         this.list_questions.add(question15);
     }
 
+    /**
+     * Este método genera una lista de preguntas aleatoria, dependiendo de si el jugador
+     * ha seleccionado el modo con imágenes o no, y el número de preguntas
+     *
+     * @param numquest int numero de preguntas a mostrar en la partida
+     * @param withImages boolean se ha seleccionado imágenes o no
+     * @return ArrayList de Question
+     */
     public ArrayList<Question> getQuestion(int numquest, boolean withImages) {
         if (numquest <= this.list_questions.size()) {
+            ArrayList<Question> arrayQuestions;
+            Random rnd = new Random(System.currentTimeMillis() * 17000);
+            Collections.shuffle(this.list_questions,rnd);
             if(withImages) {
-                return new ArrayList<>(this.list_questions.subList(0, numquest));
+                arrayQuestions= new ArrayList<>(this.list_questions.subList(0, numquest));
             }else{
-                ArrayList<Question> arrayQuestions = new ArrayList<>();
+                arrayQuestions = new ArrayList<>();
                 Iterator<Question> it = this.list_questions.iterator();
                 int cont = 0;
                 while(it.hasNext() && cont<numquest){
@@ -126,8 +138,10 @@ public class Initializer extends AppCompatActivity {
                         arrayQuestions.add(q);
                         cont++;
                 }
-                return arrayQuestions;
             }
+            Random rnd2 = new Random(System.currentTimeMillis() * 23000);
+            Collections.shuffle(arrayQuestions,rnd2);
+            return arrayQuestions;
         } else {
             System.err.println("Se ha producido un error. El número de preguntas almacenado es inferior al solicitado.");
             return null;
