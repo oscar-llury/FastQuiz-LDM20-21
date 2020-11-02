@@ -4,6 +4,8 @@ package com.code.fastquiz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Esta clase como almacenamiento persistente de datos
  *
@@ -97,9 +99,22 @@ public class Initializer extends AppCompatActivity {
         this.list_questions.add(question13);
     }
 
-    public ArrayList<Question> getQuestion(int numquest) {
+    public ArrayList<Question> getQuestion(int numquest, boolean withImages) {
         if (numquest <= this.list_questions.size()) {
-                return new ArrayList<>(this.list_questions.subList(0,numquest));
+            if(withImages) {
+                return new ArrayList<>(this.list_questions.subList(0, numquest));
+            }else{
+                ArrayList<Question> arrayQuestions = new ArrayList<>();
+                Iterator<Question> it = this.list_questions.iterator();
+                int cont = 0;
+                while(it.hasNext() && cont<numquest){
+                    Question q = it.next();
+                    if(!q.isImage())
+                        arrayQuestions.add(q);
+                        cont++;
+                }
+                return arrayQuestions;
+            }
         } else {
             System.err.println("Se ha producido un error. El número de preguntas almacenado es inferior al solicitado.");
             return null;
