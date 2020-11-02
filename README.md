@@ -38,3 +38,9 @@ Text color: ![#221E2A](https://via.placeholder.com/15/221E2A/000000?text=+) `#22
   
 Background color: ![#F7F7F7](https://via.placeholder.com/15/F7F7F7/000000?text=+) `#F7F7F7`
   
+## Tested Devices
+- Motorola G2 API 22  ✔
+- Pixel 2 API 25 ✔
+- Pixel 2 API 26 ✔
+- Samsung S8 API 28 ✔
+- Samsung S10 PLUS API 29 ✔
