@@ -46,11 +46,11 @@ public class Initializer extends AppCompatActivity {
         question7.addAnswer("Sena", false);
         question7.addAnswer("Danubio", false);
         question7.addAnswer("Amazonas", true);
-        Question question8 = new Question("¿Cuándo acabó la 2º Guerra Mundial?");
-        question8.addAnswer("1936", false);
-        question8.addAnswer("1938", false);
-        question8.addAnswer("1942", false);
-        question8.addAnswer("1945", true);
+        Question question8 = new Question("¿A qué se dedica la siguiente persona?",true,"martin");
+        question8.addAnswer("Modelo", false);
+        question8.addAnswer("Futbolista", false);
+        question8.addAnswer("DJ", true);
+        question8.addAnswer("Presentador de TV", false);
         Question question9 = new Question("¿Dónde se originaron los juegos olímpicos?");
         question9.addAnswer("Italia", false);
         question9.addAnswer("Francia", false);
