@@ -19,6 +19,7 @@ public class Question {
         this.contShownAnswers = 0;
         this.correctPos = null;
         this.question = question;
+        this.image = false;
         this.answers = new ArrayList<String>();
     }
 

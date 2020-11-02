@@ -27,7 +27,7 @@ public class Initializer extends AppCompatActivity {
         question3.addAnswer("Messi", false);
         question3.addAnswer("Cristóbal Colón", true);
         question3.addAnswer("Hernán Cortés", false);
-        Question question4 = new Question("¿Cuándo acabó la 2º Guerra Mundial?",true,"jeff.jpg");
+        Question question4 = new Question("¿Cuándo acabó la 2º Guerra Mundial?");
         question4.addAnswer("1936", false);
         question4.addAnswer("1938", false);
         question4.addAnswer("1942", false);
@@ -67,7 +67,7 @@ public class Initializer extends AppCompatActivity {
         question11.addAnswer("Chile", false);
         question11.addAnswer("Venezuela", false);
         question11.addAnswer("Colombia", false);
-        Question question12 = new Question("¿Cómo se llama el fundador de Amazon?");
+        Question question12 = new Question("Identifica a la siguiente persona de la fotografía.",true,"jeff");
         question12.addAnswer("Bill Gates", false);
         question12.addAnswer("Mark Zuckemberg", false);
         question12.addAnswer("Jeff Bezos", true);
