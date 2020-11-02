@@ -84,15 +84,15 @@ public class Initializer extends AppCompatActivity {
         question13.addAnswer("Mongolia", true);
         question13.addAnswer("China", false);
         Question question14 = new Question("¿A qué empresa pertenece este logo?",true,"logomc");
-        question13.addAnswer("Burger King", false);
-        question13.addAnswer("McDonalds", true);
-        question13.addAnswer("KFC", false);
-        question13.addAnswer("Taco Bell", false);
+        question14.addAnswer("Burger King", false);
+        question14.addAnswer("McDonalds", true);
+        question14.addAnswer("KFC", false);
+        question14.addAnswer("Taco Bell", false);
         Question question15 = new Question("¿A qué empresa pertenece este logo?",true,"adidas");
-        question13.addAnswer("Nike", false);
-        question13.addAnswer("Reebok", false);
-        question13.addAnswer("New Balance", false);
-        question13.addAnswer("Adidas", true);
+        question15.addAnswer("Nike", false);
+        question15.addAnswer("Reebok", false);
+        question15.addAnswer("New Balance", false);
+        question15.addAnswer("Adidas", true);
 
 
         this.list_questions.add(question1);
