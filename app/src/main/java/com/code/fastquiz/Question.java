@@ -57,7 +57,7 @@ public class Question {
 
     public String getAnswer(){
         if(this.contShownAnswers == 0){
-            Random rnd = new Random(36316481);
+            Random rnd = new Random(421248915);;
             this.correctPos = (int) (rnd.nextDouble()*4);
             System.out.println("correctPos "+correctPos);
         }
@@ -66,7 +66,7 @@ public class Question {
             System.out.println("correcto");
             return this.answers.get(0);
         }else{
-            Random rnd2 = new Random(36884614);
+            Random rnd2 = new Random(525982935);;
             System.out.println("size "+this.answers.size());
             //System.out.println((int) (rnd2.nextDouble()*this.answers.size()-1)+1);
             int posarray = (int) (rnd2.nextDouble()*this.answers.size()-1)+1;
@@ -80,7 +80,7 @@ public class Question {
 
     public void addAnswer(String answer, boolean isCorrect) {
         if (this.answers.isEmpty()) {
-            this.answers = new ArrayList<String>();
+            this.answers = new ArrayList<>();
         }
         //this.answers.add(answer);
         if (isCorrect) {

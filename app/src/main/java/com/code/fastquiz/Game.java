@@ -63,8 +63,8 @@ public class Game extends AppCompatActivity {
         this.answer2 = findViewById(R.id.button_answer2);
         this.answer3 = findViewById(R.id.button_answer3);
         this.answer4 = findViewById(R.id.button_answer4);
-        this.scoreView = (TextView)findViewById(R.id.score);
-        this.questions_count = (TextView)findViewById(R.id.questions_count);
+        this.scoreView = findViewById(R.id.score);
+        this.questions_count = findViewById(R.id.questions_count);
         this.imageView_question = findViewById(R.id.imageView_question);
         updateScore();
     }
@@ -148,7 +148,6 @@ public class Game extends AppCompatActivity {
             question.setText(question_to_show.getQuestion());
 
             if(this.questions_with_images && this.question_to_show.isImage()) {
-                imageView_question.setVisibility(View.VISIBLE);
                 //poner el path de la imagen
                 //image_question.setImageResource(R.drawable.imagen_test);
                 String questionPath = this.question_to_show.getPath();

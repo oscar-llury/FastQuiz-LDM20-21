@@ -1,17 +1,15 @@
 package com.code.fastquiz;
 
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Initializer extends AppCompatActivity {
     private ArrayList<Question> list_questions;
 
     public Initializer() {
-        this.list_questions = new ArrayList<Question>();
+        this.list_questions = new ArrayList<>();
 
         Question question1 = new Question("¿Cuál es la capital de Mongolia?");
         question1.addAnswer("Estambul", false);
@@ -91,7 +89,7 @@ public class Initializer extends AppCompatActivity {
 
     public ArrayList<Question> getQuestion(int numquest) {
         if (numquest <= this.list_questions.size()) {
-                return new ArrayList<Question>(this.list_questions.subList(0,numquest));
+                return new ArrayList<>(this.list_questions.subList(0,numquest));
         } else {
             System.err.println("Se ha producido un error. El número de preguntas almacenado es inferior al solicitado.");
             return null;
