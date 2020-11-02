@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">FastQuiz</string>
+
+    <!-- activity_main -->
+    <string name="star_game">Comenzar juego</string>
+    <string name="star_text">Bienvenido a FastQuiz</string>
+    <string name="star_text2">prepárate para poner a prueba tu conocimiento...</string>
+    <string name="star_questions_text">Selecciona el modo de juego:</string>
+    <string name="mode_5">Corto: 5 preguntas</string>
+    <string name="mode_complete">Completo: todas las preguntas</string>
+    <string name="star_image_text">Elige el tipo de preguntas:</string>
+    <string name="with_image">con imágenes</string>
+
+    <!-- activity_game -->
+    <string name="answer_text">¿Deseas continuar?</string>
+    <string name="score">Score: </string>
+    <string name="question_count">preguntas</string>
+    <string name="desciption_image">Question image</string>
+
+    <!-- activity_game popUp-->
+    <string name="wrong_answer_exit">Salir</string>
+    <string name="wrong_answer_continue">Continuar</string>
+    <string name="popUpCorrect">Has acertado! +3pts</string>
+    <string name="popUpIncorrect">Respuesta errónea. -2pts</string>
+    <string name="popUpOver">Game Over!</string>
+    <string name="popOverr">No tienes puntos para poder seguir jugando</string>
+    <string name="popFinish">Enhorabuena, has llegado al fin de la partida. Hasta pronto!</string>
+
+
+    <!-- activity_finalscore -->
+    <string name="your_score">Esta es tu puntuación:</string>
+    <string name="menu">Volver a Empezar</string>
+    <string name="finalTittle">Fin de partida</string>
+
 </resources>
