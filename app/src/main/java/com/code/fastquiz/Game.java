@@ -49,7 +49,10 @@ public class Game extends AppCompatActivity {
         this.questions_with_images = images==1;
 
         this.num_questions_count = 0;
-        this.arrayQuestions = ini.getQuestion(this.total_questions);
+        this.arrayQuestions = ini.getQuestion(this.total_questions, this.questions_with_images);
+        if(!this.questions_with_images && playerMode==2){
+            this.total_questions = this.arrayQuestions.size();
+        }
         this.player = new Player();
         this.question = findViewById(R.id.question_text);
         this.answer1 = findViewById(R.id.button_answer1);
