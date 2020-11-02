@@ -50,11 +50,8 @@ public class Game extends AppCompatActivity {
             this.total_questions = 5;
         }else if(playerMode==2){
             this.total_questions = ini.init_size();
-        }else{
-            //finalizar juego
         }
         this.questions_with_images = images==1;
-        //Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
 
         this.num_questions_count = 0;
         this.arrayQuestions = ini.getQuestion(this.total_questions);
@@ -119,7 +116,6 @@ public class Game extends AppCompatActivity {
         answer2.setEnabled(false);
         answer3.setEnabled(false);
         answer4.setEnabled(false);
-        imageView_question.setVisibility(View.GONE);
 
         this.num_questions_count ++;
         this.arrayQuestions.remove(question_to_show);
@@ -132,16 +128,14 @@ public class Game extends AppCompatActivity {
         }
         updateScore();
         showPopUp(checking);
-        //SystemClock.sleep(2000);
     }
 
     private void playGame(){
-
+        imageView_question.setVisibility(View.GONE);
         if(this.arrayQuestions.size()>0) {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-            //answer1.setBackgroundColor(getResources().getColor(R.color.textColor));
             answer1.setBackgroundColor(R.drawable.button_answer);
             answer2.setBackgroundColor(R.drawable.button_answer);
             answer3.setBackgroundColor(R.drawable.button_answer);
@@ -152,19 +146,7 @@ public class Game extends AppCompatActivity {
                 int imgRsc =  getResources().getIdentifier(this.question_to_show.getPath(), "drawable", getApplicationContext().getPackageName());
                 imageView_question.setVisibility(ImageView.VISIBLE);
                 imageView_question.setImageDrawable(getResources().getDrawable(imgRsc));
-/*
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20,20);
-                lp.setMargins(32, 8, 32, 0);
-                answer2.setLayoutParams(lp);
-                answer3.setLayoutParams(lp);
-                answer4.setLayoutParams(lp);
-*/
             }
-
-            System.out.println("intro sleep");
-            // SystemClock.sleep(2000);
-            System.out.println("out sleep");
-
             answer1.setText(question_to_show.getAnswer());
             answer2.setText(question_to_show.getAnswer());
             answer3.setText(question_to_show.getAnswer());
@@ -203,7 +185,7 @@ public class Game extends AppCompatActivity {
                     });
         }else{
             String tittle,text;
-            if(correct && this.num_questions_count>=this.total_questions){
+            if(this.player.getScore()>0 && this.num_questions_count>=this.total_questions){
                 tittle = getString(R.string.finalTittle);
                 text = getString(R.string.popFinish);
             }else{
