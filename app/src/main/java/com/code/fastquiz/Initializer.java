@@ -16,7 +16,6 @@ public class Initializer extends AppCompatActivity {
         question1.addAnswer("Ulan Bator", true);
         question1.addAnswer("Madrid", false);
         question1.addAnswer("Tokio", false);
-        question1.setImage(true);
         Question question2 = new Question("¿Quién escribió el Quijote?");
         question2.addAnswer("Miguel de Unamuno", false);
         question2.addAnswer("Federico García Lorca", false);
