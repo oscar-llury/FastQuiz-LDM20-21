@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Clase de tipo objeto Question
+ *
+ * @author Carlos González, Óscar Rivas
+ */
 public class Question {
     private Integer correctPos; //Posición correcta en los botones
     private String question;
@@ -53,25 +58,25 @@ public class Question {
     }
 
     public void setPath(String path) {
-        this.path = "R.drawable" + path;
+        this.path = path;
     }
 
+    /**
+     * Este método devuelve aleatoriamente una de las posibles respuestas de la pregunta
+     *
+     * @return String la respuesta
+     */
     public String getAnswer(){
         if(this.contShownAnswers == 0){
-            Random rnd = new Random(421248915);;
-            this.correctPos = (int) (rnd.nextDouble()*4);
-            System.out.println("correctPos "+correctPos);
+            Random rnd = new Random(System.currentTimeMillis() * 13000);;
+            this.correctPos = (int) (rnd.nextDouble()*4)+1;
         }
         this.contShownAnswers = this.contShownAnswers+1;
         if(this.contShownAnswers==this.correctPos) {
-            System.out.println("correcto");
             return this.answers.get(0);
         }else{
-            Random rnd2 = new Random(525982935);;
-            System.out.println("size "+this.answers.size());
-            //System.out.println((int) (rnd2.nextDouble()*this.answers.size()-1)+1);
+            Random rnd2 = new Random(System.currentTimeMillis() * 7000);;
             int posarray = (int) (rnd2.nextDouble()*this.answers.size()-1)+1;
-            System.out.println(posarray);
             String a = this.answers.get(posarray);
             this.answers.remove(posarray);
             return a;
@@ -79,19 +84,31 @@ public class Question {
 
     }
 
+    /**
+     * Este método añade una respuesta para la pregunta
+     *
+     * @param answer String la respuesta
+     * @param isCorrect boolean si es correcta o no
+     */
+
     public void addAnswer(String answer, boolean isCorrect) {
         if (this.answers.isEmpty()) {
             this.answers = new ArrayList<>();
         }
-        //this.answers.add(answer);
         if (isCorrect) {
             this.answers.add(0, answer);
         } else {
             this.answers.add(answer);
         }
     }
-        public boolean checkCorrectAnswer(int numAnswer){
+    /**
+     * Este método comprueba si la posición de la respuesta es la correcta
+     *
+     * @param numAnswer int el número de la respuesta clicada
+     * @return boolean si la respuesta es correcta
+     */
+    public boolean checkCorrectAnswer(int numAnswer){
         return numAnswer == this.correctPos;
-        }
+    }
 
 }

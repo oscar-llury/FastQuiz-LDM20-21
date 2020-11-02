@@ -2,27 +2,23 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Clase para desarrollar el juego
+ *
+ * @author Carlos González, Óscar Rivas
+ */
 public class Game extends AppCompatActivity {
     private int total_questions, num_questions_count;
     private Button answer1,answer2,answer3,answer4;
@@ -33,7 +29,6 @@ public class Game extends AppCompatActivity {
     private Player player;
     private TextView scoreView, questions_count;
     private ImageView imageView_question;
-    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +45,8 @@ public class Game extends AppCompatActivity {
             this.total_questions = 5;
         }else if(playerMode==2){
             this.total_questions = ini.init_size();
-        }else{
-            //finalizar juego
         }
         this.questions_with_images = images==1;
-        //Toast.makeText(this, "Images: " + this.questions_with_images, Toast.LENGTH_SHORT).show();
 
         this.num_questions_count = 0;
         this.arrayQuestions = ini.getQuestion(this.total_questions);
@@ -74,7 +66,11 @@ public class Game extends AppCompatActivity {
         super.onStart();
         playGame();
     }
-
+    /**
+     * Este método se ejecuta cuando el usuario pulsa una respuesta
+     *
+     * @param v View
+     */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_answer1: {
@@ -119,7 +115,6 @@ public class Game extends AppCompatActivity {
         answer2.setEnabled(false);
         answer3.setEnabled(false);
         answer4.setEnabled(false);
-        imageView_question.setVisibility(View.GONE);
 
         this.num_questions_count ++;
         this.arrayQuestions.remove(question_to_show);
@@ -132,16 +127,18 @@ public class Game extends AppCompatActivity {
         }
         updateScore();
         showPopUp(checking);
-        //SystemClock.sleep(2000);
     }
 
+    /**
+     * Método que establece la información de la pregunta en el layout
+     *
+     */
     private void playGame(){
-
+        imageView_question.setVisibility(View.GONE);
         if(this.arrayQuestions.size()>0) {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-            //answer1.setBackgroundColor(getResources().getColor(R.color.textColor));
             answer1.setBackgroundColor(R.drawable.button_answer);
             answer2.setBackgroundColor(R.drawable.button_answer);
             answer3.setBackgroundColor(R.drawable.button_answer);
@@ -152,19 +149,7 @@ public class Game extends AppCompatActivity {
                 int imgRsc =  getResources().getIdentifier(this.question_to_show.getPath(), "drawable", getApplicationContext().getPackageName());
                 imageView_question.setVisibility(ImageView.VISIBLE);
                 imageView_question.setImageDrawable(getResources().getDrawable(imgRsc));
-/*
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20,20);
-                lp.setMargins(32, 8, 32, 0);
-                answer2.setLayoutParams(lp);
-                answer3.setLayoutParams(lp);
-                answer4.setLayoutParams(lp);
-*/
             }
-
-            System.out.println("intro sleep");
-            // SystemClock.sleep(2000);
-            System.out.println("out sleep");
-
             answer1.setText(question_to_show.getAnswer());
             answer2.setText(question_to_show.getAnswer());
             answer3.setText(question_to_show.getAnswer());
@@ -178,7 +163,12 @@ public class Game extends AppCompatActivity {
             initScoreActivity();
         }
     }
-
+    /**
+     * Método que crea y muestra una ventana emergente al pulsar una respuesta
+     *
+     * @param correct boolean si la respuesta es correcta o no
+     * @return Dialog
+     */
     public Dialog showPopUp(boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         String popUpTitle;
@@ -203,7 +193,7 @@ public class Game extends AppCompatActivity {
                     });
         }else{
             String tittle,text;
-            if(correct && this.num_questions_count>=this.total_questions){
+            if(this.player.getScore()>0 && this.num_questions_count>=this.total_questions){
                 tittle = getString(R.string.finalTittle);
                 text = getString(R.string.popFinish);
             }else{
@@ -221,12 +211,19 @@ public class Game extends AppCompatActivity {
         return popUp.show();
     }
 
+    /**
+     * Este método inicia la actividad Final Score
+     *
+     */
     private void initScoreActivity(){
         Intent activity = new Intent(Game.this,FinalScore.class);
         activity.putExtra("score", this.player.getScore());
         startActivity(activity);
     }
-
+    /**
+     * Este método actualiza el score
+     *
+     */
     private void updateScore(){
         int score = this.player.getScore();
         if(score >0){

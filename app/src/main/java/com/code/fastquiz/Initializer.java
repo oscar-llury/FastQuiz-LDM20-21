@@ -4,6 +4,11 @@ package com.code.fastquiz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+/**
+ * Esta clase como almacenamiento persistente de datos
+ *
+ * @author Carlos González, Óscar Rivas
+ */
 
 public class Initializer extends AppCompatActivity {
     private ArrayList<Question> list_questions;
@@ -46,11 +51,11 @@ public class Initializer extends AppCompatActivity {
         question7.addAnswer("Sena", false);
         question7.addAnswer("Danubio", false);
         question7.addAnswer("Amazonas", true);
-        Question question8 = new Question("¿Cuándo acabó la 2º Guerra Mundial?");
-        question8.addAnswer("1936", false);
-        question8.addAnswer("1938", false);
-        question8.addAnswer("1942", false);
-        question8.addAnswer("1945", true);
+        Question question8 = new Question("¿A qué se dedica la siguiente persona?",true,"martin");
+        question8.addAnswer("Modelo", false);
+        question8.addAnswer("Futbolista", false);
+        question8.addAnswer("DJ", true);
+        question8.addAnswer("Presentador de TV", false);
         Question question9 = new Question("¿Dónde se originaron los juegos olímpicos?");
         question9.addAnswer("Italia", false);
         question9.addAnswer("Francia", false);
@@ -66,12 +71,12 @@ public class Initializer extends AppCompatActivity {
         question11.addAnswer("Chile", false);
         question11.addAnswer("Venezuela", false);
         question11.addAnswer("Colombia", false);
-        Question question12 = new Question("Identifica a la siguiente persona de la fotografía.",true,"jeff");
+        Question question12 = new Question("Identifica a la siguiente persona",true,"jeff");
         question12.addAnswer("Bill Gates", false);
         question12.addAnswer("Mark Zuckemberg", false);
         question12.addAnswer("Jeff Bezos", true);
         question12.addAnswer("Sundar Pichai", false);
-        Question question13 = new Question("Identifica a qué país pertenece la siguiente bandera",true,"mongolia");
+        Question question13 = new Question("Identifica el país",true,"mongolia");
         question13.addAnswer("España", false);
         question13.addAnswer("Filipinas", false);
         question13.addAnswer("Mongolia", true);
