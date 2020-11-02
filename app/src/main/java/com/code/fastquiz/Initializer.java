@@ -4,6 +4,11 @@ package com.code.fastquiz;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+/**
+ * Esta clase como almacenamiento persistente de datos
+ *
+ * @author Carlos González, Óscar Rivas
+ */
 
 public class Initializer extends AppCompatActivity {
     private ArrayList<Question> list_questions;

@@ -5,17 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+/**
+ * Clase que muestra la puntuación final
+ *
+ * @author Carlos González, Óscar Rivas
+ */
 public class FinalScore extends AppCompatActivity {
-    private TextView score;
-    private Player player;
-    private Button menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final_score);
-        score = (TextView) findViewById(R.id.score);
+        TextView score = findViewById(R.id.score);
         Intent mIntent = getIntent();
         int playerScore = mIntent.getIntExtra("score", 0);
         if(playerScore<=0)
@@ -23,8 +24,7 @@ public class FinalScore extends AppCompatActivity {
         else
             score.setText(Integer.toString(playerScore));
 
-        menu = (Button) findViewById(R.id.button_start_game);
-
+        Button menu = findViewById(R.id.button_start_game);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
