@@ -38,7 +38,12 @@ Text color: ![#221E2A](https://via.placeholder.com/15/221E2A/000000?text=+) `#22
   
 Background color: ![#F7F7F7](https://via.placeholder.com/15/F7F7F7/000000?text=+) `#F7F7F7`
   
-## Tested Devices
+## SDK Version
+- Minimum SDK Version: 21
+- Compile SDK Version: 29
+- Target SDK Version: 29
+
+### Tested Devices
 - Motorola G2 API 22  ✔
 - Pixel 2 API 25 ✔
 - Pixel 2 API 26 ✔
