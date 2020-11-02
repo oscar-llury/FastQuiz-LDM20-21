@@ -2,22 +2,19 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private  RadioGroup question_group;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch have_images;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button startButton = findViewById(R.id.button_start_game);
-        question_group = (RadioGroup) findViewById(R.id.radioGroup_question);
-        have_images = (Switch) findViewById(R.id.switch_images);
+        question_group = findViewById(R.id.radioGroup_question);
+        have_images = findViewById(R.id.switch_images);
 
         startButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){

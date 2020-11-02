@@ -17,6 +17,7 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -63,8 +64,8 @@ public class Game extends AppCompatActivity {
         this.answer2 = findViewById(R.id.button_answer2);
         this.answer3 = findViewById(R.id.button_answer3);
         this.answer4 = findViewById(R.id.button_answer4);
-        this.scoreView = (TextView)findViewById(R.id.score);
-        this.questions_count = (TextView)findViewById(R.id.questions_count);
+        this.scoreView = findViewById(R.id.score);
+        this.questions_count = findViewById(R.id.questions_count);
         this.imageView_question = findViewById(R.id.imageView_question);
         updateScore();
     }
@@ -148,12 +149,16 @@ public class Game extends AppCompatActivity {
             question.setText(question_to_show.getQuestion());
 
             if(this.questions_with_images && this.question_to_show.isImage()) {
-                imageView_question.setVisibility(View.VISIBLE);
-                //poner el path de la imagen
-                //image_question.setImageResource(R.drawable.imagen_test);
-                String questionPath = this.question_to_show.getPath();
+                int imgRsc =  getResources().getIdentifier(this.question_to_show.getPath(), "drawable", getApplicationContext().getPackageName());
                 imageView_question.setVisibility(ImageView.VISIBLE);
-                imageView_question.setImageDrawable(getResources().getDrawable(R.drawable.jeff));
+                imageView_question.setImageDrawable(getResources().getDrawable(imgRsc));
+/*
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20,20);
+                lp.setMargins(32, 8, 32, 0);
+                answer2.setLayoutParams(lp);
+                answer3.setLayoutParams(lp);
+                answer4.setLayoutParams(lp);
+*/
             }
 
             System.out.println("intro sleep");
