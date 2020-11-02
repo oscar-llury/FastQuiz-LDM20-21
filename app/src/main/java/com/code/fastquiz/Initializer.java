@@ -67,12 +67,12 @@ public class Initializer extends AppCompatActivity {
         question11.addAnswer("Chile", false);
         question11.addAnswer("Venezuela", false);
         question11.addAnswer("Colombia", false);
-        Question question12 = new Question("Identifica a la siguiente persona de la fotografía.",true,"jeff");
+        Question question12 = new Question("Identifica a la siguiente persona",true,"jeff");
         question12.addAnswer("Bill Gates", false);
         question12.addAnswer("Mark Zuckemberg", false);
         question12.addAnswer("Jeff Bezos", true);
         question12.addAnswer("Sundar Pichai", false);
-        Question question13 = new Question("Identifica a qué país pertenece la siguiente bandera",true,"mongolia");
+        Question question13 = new Question("Identifica el país",true,"mongolia");
         question13.addAnswer("España", false);
         question13.addAnswer("Filipinas", false);
         question13.addAnswer("Mongolia", true);
