@@ -72,6 +72,11 @@ public class Initializer extends AppCompatActivity {
         question12.addAnswer("Mark Zuckemberg", false);
         question12.addAnswer("Jeff Bezos", true);
         question12.addAnswer("Sundar Pichai", false);
+        Question question13 = new Question("Identifica a qué país pertenece la siguiente bandera",true,"mongolia");
+        question13.addAnswer("España", false);
+        question13.addAnswer("Filipinas", false);
+        question13.addAnswer("Mongolia", true);
+        question13.addAnswer("China", false);
 
         this.list_questions.add(question1);
         this.list_questions.add(question2);
@@ -85,6 +90,7 @@ public class Initializer extends AppCompatActivity {
         this.list_questions.add(question10);
         this.list_questions.add(question11);
         this.list_questions.add(question12);
+        this.list_questions.add(question13);
     }
 
     public ArrayList<Question> getQuestion(int numquest) {
