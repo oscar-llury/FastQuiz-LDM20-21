@@ -10,7 +10,11 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
-
+/**
+ * Clase inicial de la aplicación
+ *
+ * @author Carlos González, Óscar Rivas
+ */
 public class MainActivity extends AppCompatActivity {
 
     private  RadioGroup question_group;
