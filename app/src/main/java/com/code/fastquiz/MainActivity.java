@@ -60,4 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void initRankingActivity(View view){
+        Intent activity = new Intent(MainActivity.this, Ranking.class);
+        startActivity(activity);
+    }
+
 }
