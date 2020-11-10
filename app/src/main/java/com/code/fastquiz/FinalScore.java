@@ -1,10 +1,16 @@
 package com.code.fastquiz;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 /**
  * Clase que muestra la puntuación final
  *
@@ -12,28 +18,69 @@ import android.widget.TextView;
  */
 public class FinalScore extends AppCompatActivity {
 
+    private AdminSQLiteOpenHelper dataBase_helper;
+    private SQLiteDatabase dataBase;
+    private EditText playerName;
+    private boolean registered;
+    private int playerScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dataBase_helper = new AdminSQLiteOpenHelper(this, "fastQuiz_bbdd", null, 1);
+
         setContentView(R.layout.activity_final_score);
         TextView score = findViewById(R.id.score);
+        registered = false;
+
         Intent mIntent = getIntent();
-        int playerScore = mIntent.getIntExtra("score", 0);
-        if(playerScore<=0)
+        playerScore = mIntent.getIntExtra("score", 0);
+        if(playerScore<=0) {
             score.setText("0");
-        else
+            playerScore = 0;
+        }else
             score.setText(Integer.toString(playerScore));
-
-        Button menu = findViewById(R.id.button_start_game);
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FinalScore.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
     }
+
+    public void registerScore(View view){
+        //abrir la base de datos modo escritura y lectura
+        dataBase = dataBase_helper.getWritableDatabase();
+        playerName = findViewById(R.id.playerName);
+        String nombre = playerName.getText().toString();
+
+        if (!nombre.isEmpty() & !registered){
+            //permite almacenar las columnas del registro en pares clave-valor
+            ContentValues registro = new ContentValues();
+            //Añade los pares
+            registro.put("name", nombre);
+            registro.put("score", playerScore);
+
+            dataBase.insert("ranking", null, registro);
+            dataBase.close();
+
+            playerName.setText("");
+            registered=true;
+
+        }else{
+            if (nombre.isEmpty()) {
+                Toast.makeText(this, "Debes rellenar el nombre", Toast.LENGTH_SHORT).show();
+            }
+            if (registered){
+                Toast.makeText(this, "Ya te has registrado", Toast.LENGTH_SHORT).show();
+            }
+        }
+        dataBase.close();
+    }
+
+    public void restartGame(View view){
+        Intent activity = new Intent(FinalScore.this, MainActivity.class);
+        startActivity(activity);
+    }
+
+    public void initRankingActivity(View view){
+        Intent activity = new Intent(FinalScore.this, Ranking.class);
+        startActivity(activity);
+    }
+
 }

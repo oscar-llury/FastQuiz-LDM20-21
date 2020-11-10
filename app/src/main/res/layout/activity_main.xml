@@ -16,23 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button_start_game"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_start"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/star_game"
-            android:textColor="@color/textColor"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -100,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_start_game"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -112,16 +95,57 @@
                 android:text="@string/star_image_text"
                 android:textColor="@color/textColor" />
 
-                <!--android.support.v7.widget.SwitchCompat-->
+            <!--android.support.v7.widget.SwitchCompat-->
             <Switch
                 android:id="@+id/switch_images"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/textColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/with_image" />
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/with_image"
+                android:textColor="@color/textColor" />
 
         </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/button_start_game5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_start"
+                android:fontFamily="@font/roboto_medium"
+                android:onClick="initRankingActivity"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/viewRanking"
+                android:textColor="@color/textColor"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/button_start_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_start"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/star_game"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

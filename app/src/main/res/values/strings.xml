@@ -28,8 +28,15 @@
 
 
     <!-- activity_finalscore -->
-    <string name="your_score">Esta es tu puntuación:</string>
-    <string name="menu">Volver a Empezar</string>
+    <string name="your_score">Tu puntuación:</string>
+    <string name="menu">Inicio</string>
     <string name="finalTittle">Fin de partida</string>
+    <string name="finalQuestion">¿Deseas registrar tu puntuación?</string>
+    <string name="inputPlayerName">Introduce tu nombre</string>
+    <string name="inputRegister">Registrar</string>
+    <string name="viewRanking">Ver ranking</string>
+
+    <!-- activity_ranking -->
+    <string name="this_ranking">Ranking FastQuiz</string>
 
 </resources>
