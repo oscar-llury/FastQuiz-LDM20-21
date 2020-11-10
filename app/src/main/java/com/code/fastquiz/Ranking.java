@@ -46,7 +46,8 @@ public class Ranking extends AppCompatActivity {
             listPlayers.add(ranking.get(i).getScore()+" - "+ranking.get(i).getName());
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPlayers);
+        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPlayers);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.ranking_item_layout, listPlayers);
         rankingListView.setAdapter(adapter);
 
     }

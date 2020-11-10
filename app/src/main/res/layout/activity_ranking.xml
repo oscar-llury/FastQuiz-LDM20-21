@@ -25,6 +25,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:textAlignment="center"
+        android:divider="@null"
         app:layout_constraintBottom_toTopOf="@+id/button_start_game4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
