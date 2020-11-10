@@ -31,8 +31,6 @@ public class Ranking extends AppCompatActivity {
         ArrayList<Player> ranking = new ArrayList<Player>();
         Player player = null;
 
-        ArrayList<String> listPlayers = new ArrayList<String>();
-
         while(cursor.moveToNext()){
             player = new Player();
             player.setName(cursor.getString(0));
@@ -41,15 +39,12 @@ public class Ranking extends AppCompatActivity {
             ranking.add(player);
         }
         dataBase.close();
-
-        for(int i=0;i<ranking.size();i++){
-            listPlayers.add(ranking.get(i).getScore()+" - "+ranking.get(i).getName());
-        }
-
+/*
         //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPlayers);
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.ranking_item_layout, listPlayers);
         rankingListView.setAdapter(adapter);
-
+*/
+        rankingListView.setAdapter(new ranking_item_layout(this, ranking));
     }
 
     public void restartGame(View view){
