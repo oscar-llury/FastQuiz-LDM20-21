@@ -40,7 +40,8 @@ public class Game extends AppCompatActivity {
         int images = mIntent.getIntExtra("images", 0);
 
         Initializer ini = new Initializer();
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_fastquiz);
         if(playerMode==1){
             this.total_questions = 5;
         }else if(playerMode==2){
