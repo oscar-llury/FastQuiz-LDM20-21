@@ -35,8 +35,10 @@ public class FinalScore extends AppCompatActivity {
         registered = false;
 
         Intent mIntent = getIntent();
-        playerScore = mIntent.getIntExtra("score", 0);
-        if(playerScore<=0) {
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_fastquiz_round);
+        int playerScore = mIntent.getIntExtra("score", 0);
+        if(playerScore<=0)
             score.setText("0");
             playerScore = 0;
         }else
