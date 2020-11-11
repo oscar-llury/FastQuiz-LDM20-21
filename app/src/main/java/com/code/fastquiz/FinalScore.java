@@ -38,11 +38,12 @@ public class FinalScore extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_fastquiz_round);
         int playerScore = mIntent.getIntExtra("score", 0);
-        if(playerScore<=0)
+        if(playerScore<=0){
             score.setText("0");
             playerScore = 0;
-        }else
+        }else{
             score.setText(Integer.toString(playerScore));
+        }
     }
 
     public void registerScore(View view){
