@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="FastQuizTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="FastQuizTheme" parent="Theme.MaterialComponents.DayNight">
 
         <!-- action bar -->
         <item name="windowActionBarOverlay">false</item>
@@ -11,7 +11,7 @@
         <item name="android:textColor">@color/textColor</item>
 
         <!-- mobile notification bar -->
-        <item name="colorPrimaryDark">@color/MenuColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
 
         <!-- background -->
         <item name="android:windowBackground">@color/background</item>
@@ -20,9 +20,9 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
 
         <!-- controls, checkbox and text fields -->
-        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="actionMenuTextColor">@color/colorPrimary</item>
+        <item name="actionMenuTextColor">@color/primaryDarkColor</item>
     </style>
 
 </resources>

@@ -143,10 +143,10 @@ public class Game extends AppCompatActivity {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-            answer1.setBackgroundColor(R.drawable.button_answer);
-            answer2.setBackgroundColor(R.drawable.button_answer);
-            answer3.setBackgroundColor(R.drawable.button_answer);
-            answer4.setBackgroundColor(R.drawable.button_answer);
+            answer1.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer2.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer3.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer4.setBackgroundColor(Color.parseColor("#b75c4c"));
             question.setText(question_to_show.getQuestion());
 
             if(this.questions_with_images && this.question_to_show.isImage()) {
