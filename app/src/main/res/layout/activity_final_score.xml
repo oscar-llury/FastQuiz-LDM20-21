@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FinalScore">
-
+    <include
+        layout = "@layout/app_bar"
+        android:id="@+id/app_bar">
+    </include>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"

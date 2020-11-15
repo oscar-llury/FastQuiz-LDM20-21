@@ -8,8 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/FastQuizTheme">
-        <activity android:name=".Ranking"></activity>
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".ManualActivity" />
+        <activity android:name=".Ranking" />
         <activity android:name=".FinalScore" />
         <activity android:name=".Game" />
         <activity android:name=".MainActivity">

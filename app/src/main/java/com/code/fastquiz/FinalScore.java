@@ -1,5 +1,6 @@
 package com.code.fastquiz;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -33,10 +34,10 @@ public class FinalScore extends AppCompatActivity {
         setContentView(R.layout.activity_final_score);
         TextView score = findViewById(R.id.score);
         registered = false;
-
+        Toolbar toolb =findViewById(R.id.app_bar);
+        setSupportActionBar(toolb);
+        toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
         Intent mIntent = getIntent();
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_fastquiz_round);
         int playerScore = mIntent.getIntExtra("score", 0);
         if(playerScore<=0){
             score.setText("0");
