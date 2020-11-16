@@ -11,6 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:fontFamily="@font/roboto_medium"
+        android:textColor="?attr/primaryTextColor"
         android:gravity="center"
         android:textSize="20sp" />
 
@@ -19,6 +20,7 @@
         android:layout_width="200dp"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:fontFamily="@font/roboto_medium"
+        android:textColor="?attr/primaryTextColor"
         android:gravity="center"
         android:textSize="20sp" />
 
@@ -27,6 +29,7 @@
         android:layout_width="100dp"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:fontFamily="@font/roboto_medium"
+        android:textColor="?attr/primaryTextColor"
         android:gravity="center"
         android:textSize="20sp" />
 </LinearLayout>
