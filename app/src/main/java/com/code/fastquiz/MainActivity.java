@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.help:
                 Intent manual = new Intent(this, ManualActivity.class);
                 startActivity(manual);
-                Toast.makeText(getApplicationContext(), "Bienvenido al manual",Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

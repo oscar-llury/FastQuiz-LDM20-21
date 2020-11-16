@@ -44,10 +44,10 @@
     <string name="user_manual">Manual de usuario</string>
     <string name="manual_1">Bienvenido a Fast Quiz!
         Fast Quiz es un juego de un jugador que consiste en
-        contestar preguntas.
+        contestar preguntas para alcanzar la máxima puntuación.
         </string>
     <string name="manual_2">El primer paso es elegir el modo de juego que quieras, es muy sencillo! Solo pulsa el botón que
-        quieras y empieza el juego!.</string>
+        quieras y comienza el juego!.</string>
 
     <string name="manual_3">Tienes en primera instancia el modo corto, para aquellos que no quieren perder mucho tiempo,
         en el que tendrás 5 preguntas que sacarán todo tu ingenio, además de elegir si quieres
@@ -62,4 +62,6 @@
         nombre y presionas el botón de guardar, tu puntuación quedará para la historia.
         ¿A qué esperas para empezar a jugar?</string>
 
+    <string name="ImageManual1"> Imagen del manual, corresponde a los botones de selección del modo de juego</string>
+    <string name="ImageManual2"> Imagen del manual, corresponde al switch del deseo de tener imágenes o no</string>
 </resources>
