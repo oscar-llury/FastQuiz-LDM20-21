@@ -1,7 +1,7 @@
 <resources>
     <!-- Base Theme -->
     <!-- Light base theme-->
-    <style name="FastQuizTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="FastQuizTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/colorAccent_light</item>
@@ -14,7 +14,7 @@
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
     <!-- Dark base theme -->
-    <style name="darkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="darkTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
