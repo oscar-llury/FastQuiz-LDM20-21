@@ -2,6 +2,8 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -47,10 +49,11 @@ public class Game extends AppCompatActivity {
         Intent mIntent = getIntent();
         int playerMode = mIntent.getIntExtra("mode", 0);
         int images = mIntent.getIntExtra("images", 0);
-
+        Toolbar toolb =findViewById(R.id.app_bar);
+        setSupportActionBar(toolb);
+        toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
         Initializer ini = new Initializer();
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_fastquiz);
+
         if(playerMode==1){
             this.total_questions = 5;
         }else if(playerMode==2){

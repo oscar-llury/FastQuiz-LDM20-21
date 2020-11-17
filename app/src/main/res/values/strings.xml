@@ -39,4 +39,36 @@
     <!-- activity_ranking -->
     <string name="this_ranking">Ranking FastQuiz</string>
 
+    <!-- activity_config -->
+    <string name="Boton1">Según la configuración del sistema</string>
+    <string name="Boton2">Modo Claro</string>
+    <string name="Boton3">Modo Nocturno</string>
+
+    <!-- activity menu -->
+    <string name="menu_item1">Manual de la App</string>
+    <string name="menu_item2">Configuración</string>
+    <!-- Activity Manual -->
+    <string name="user_manual">Manual de usuario</string>
+    <string name="manual_1">Bienvenido a Fast Quiz!
+        Fast Quiz es un juego de un jugador que consiste en
+        contestar preguntas para alcanzar la máxima puntuación.
+        </string>
+    <string name="manual_2">El primer paso es elegir el modo de juego que quieras, es muy sencillo! Solo pulsa el botón que
+        quieras y comienza el juego!.</string>
+
+    <string name="manual_3">Tienes en primera instancia el modo corto, para aquellos que no quieren perder mucho tiempo,
+        en el que tendrás 5 preguntas que sacarán todo tu ingenio, además de elegir si quieres
+        preguntas que tengan imágenes o no, ¡Eso es a tu elección!.</string>
+
+    <string name="manual_4">El segundo modo es el completo, con todas las preguntas, diseñada para gente que quiere retos
+        extensos y pasar un buen rato aprendiendo. ¡Te costará obtener una buena puntuación y querrás
+        seguir jugando!</string>
+
+
+    <string name="manual_5">Finalmente, como vemos en la imagen, saldrá la puntuación que has obtenido, si ingresas tu
+        nombre y presionas el botón de guardar, tu puntuación quedará para la historia.
+        ¿A qué esperas para empezar a jugar?</string>
+
+    <string name="ImageManual1"> Imagen del manual, corresponde a los botones de selección del modo de juego</string>
+    <string name="ImageManual2"> Imagen del manual, corresponde al switch del deseo de tener imágenes o no</string>
 </resources>

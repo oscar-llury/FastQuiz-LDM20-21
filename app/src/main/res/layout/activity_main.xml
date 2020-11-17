@@ -7,6 +7,10 @@
     tools:context=".MainActivity"
     android:background="?attr/backgroundColor">
 
+    <include
+        layout = "@layout/app_bar"
+        android:id="@+id/app_bar">
+    </include>
     <TextView
         android:id="@+id/textViewprueba"
         android:layout_width="wrap_content"
