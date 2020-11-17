@@ -134,9 +134,10 @@ public class Initializer extends AppCompatActivity {
                 int cont = 0;
                 while(it.hasNext() && cont<numquest){
                     Question q = it.next();
-                    if(!q.isImage())
+                    if(!q.isImage()) {
                         arrayQuestions.add(q);
                         cont++;
+                    }
                 }
             }
             Random rnd2 = new Random(System.currentTimeMillis() * 23000);

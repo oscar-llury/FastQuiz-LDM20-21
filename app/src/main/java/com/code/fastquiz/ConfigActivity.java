@@ -45,13 +45,6 @@ public class ConfigActivity extends AppCompatActivity {
         Toolbar toolb =findViewById(R.id.app_bar);
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
-        toolb.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
 
 }
