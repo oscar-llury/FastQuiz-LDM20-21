@@ -43,6 +43,7 @@
     <string name="Boton1">Según la configuración del sistema</string>
     <string name="Boton2">Modo Claro</string>
     <string name="Boton3">Modo Nocturno</string>
+    <string name="Atras">Go back</string>
 
     <!-- activity menu -->
     <string name="menu_item1">Manual de la App</string>
