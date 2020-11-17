@@ -4,8 +4,12 @@
 <item
     android:id="@+id/help"
     android:title="@string/menu_item1"
-    app:showAsAction="never"/>
+    app:showAsAction="never"
+    android:fontFamily="@font/roboto_medium"
+    android:textColor="?attr/primaryTextColor"/>
 <item
     android:id="@+id/config"
-    android:title="@string/menu_item2"/>
+    android:title="@string/menu_item2"
+    android:fontFamily="@font/roboto_medium"
+    android:textColor="?attr/primaryTextColor"/>
 </menu>

@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private  RadioGroup question_group;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch have_images, switch1;
-    private boolean isNightModeEnabled;
-    private SharedPreferences prefs;
+    private Switch have_images;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,10 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prefs = this.getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
-        this.isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
-
-        if(this.isNightModeEnabled){
+        SharedPreferences prefs = getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
+        boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+        if(isNightModeEnabled){
             setTheme(R.style.darkTheme);
         }else{
             setTheme(R.style.FastQuizTheme);
