@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +36,13 @@ public class Game extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
+        boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+        if(isNightModeEnabled){
+            setTheme(R.style.darkTheme);
+        }else{
+            setTheme(R.style.FastQuizTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
@@ -146,10 +155,10 @@ public class Game extends AppCompatActivity {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-            answer1.setBackgroundColor(R.drawable.button_answer);
-            answer2.setBackgroundColor(R.drawable.button_answer);
-            answer3.setBackgroundColor(R.drawable.button_answer);
-            answer4.setBackgroundColor(R.drawable.button_answer);
+            answer1.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer2.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer3.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer4.setBackgroundColor(Color.parseColor("#b75c4c"));
             question.setText(question_to_show.getQuestion());
 
             if(this.questions_with_images && this.question_to_show.isImage()) {

@@ -2,7 +2,9 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +22,13 @@ public class Ranking extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
+        boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+        if(isNightModeEnabled){
+            setTheme(R.style.darkTheme);
+        }else{
+            setTheme(R.style.FastQuizTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
         ListView rankingListView = findViewById(R.id.rankingListView);

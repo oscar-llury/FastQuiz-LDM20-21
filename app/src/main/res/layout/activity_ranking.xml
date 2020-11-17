@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ranking">
+    tools:context=".Ranking"
+    android:background="?attr/backgroundColor">
 
     <TextView
         android:id="@+id/textView9"
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/roboto_bold"
+        android:textColor="?attr/primaryTextColor"
         android:text="@string/this_ranking"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +70,7 @@
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
         android:text="@string/menu"
-        android:textColor="@color/textColor"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

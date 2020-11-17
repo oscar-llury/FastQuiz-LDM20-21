@@ -3,7 +3,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +29,13 @@ public class FinalScore extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
+        boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+        if(isNightModeEnabled){
+            setTheme(R.style.darkTheme);
+        }else{
+            setTheme(R.style.FastQuizTheme);
+        }
         super.onCreate(savedInstanceState);
 
         dataBase_helper = new AdminSQLiteOpenHelper(this, "fastQuiz_bbdd", null, 1);
