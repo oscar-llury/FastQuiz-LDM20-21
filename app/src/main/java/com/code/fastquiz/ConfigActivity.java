@@ -68,37 +68,37 @@ public class ConfigActivity extends AppCompatActivity {
         Toolbar toolb =findViewById(R.id.app_bar);
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
-        
         Button button_aply_mode = findViewById(R.id.button_aply_mode);
+        
         radioGroup_config = findViewById(R.id.radioGroup_config);
         this.radioButton_Light=findViewById(R.id.radioButton_Light);
-        this.radioButton_Dark=findViewById(R.id.radioButton_Dark);
 
+        this.radioButton_Dark=findViewById(R.id.radioButton_Dark);
         if(this.isNightModeEnabled){
             this.radioButton_Dark.setChecked(true);
         }else{
             this.radioButton_Light.setChecked(true);
+
         }
-
         button_aply_mode.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
                 SharedPreferences.Editor editor = prefs.edit();
+            public void onClick(View v) {
                 int selectedRadioButt = radioGroup_config.getCheckedRadioButtonId();
-
                 if(selectedRadioButt==R.id.radioButton_Light){
-                    Toast.makeText(getApplicationContext(), "LIGHT", Toast.LENGTH_SHORT).show();
-                    editor.putBoolean("NIGHT_MODE", false);
-                }else if(selectedRadioButt==R.id.radioButton_Dark){
-                    Toast.makeText(getApplicationContext(), "DARK", Toast.LENGTH_SHORT).show();
-                    editor.putBoolean("NIGHT_MODE", true);
-                }
-                editor.apply();
-                Intent i = new Intent(getApplicationContext(), ConfigActivity.class);
-                startActivity(i);
-                finish();
+
+
             }
         });
-
+                startActivity(i);
+                finish();
+                Intent i = new Intent(getApplicationContext(), ConfigActivity.class);
+                editor.apply();
+                    editor.putBoolean("NIGHT_MODE", true);
+                }
+                    Toast.makeText(getApplicationContext(), "DARK", Toast.LENGTH_SHORT).show();
+                    editor.putBoolean("NIGHT_MODE", false);
+                    Toast.makeText(getApplicationContext(), "LIGHT", Toast.LENGTH_SHORT).show();
+                }else if(selectedRadioButt==R.id.radioButton_Dark){
     }
 
 }
