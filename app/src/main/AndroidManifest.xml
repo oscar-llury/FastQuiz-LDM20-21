@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FastQuizTheme">
-        <activity android:name=".Ranking"></activity>
+        <activity android:name=".ConfigActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ManualActivity" />
+        <activity android:name=".Ranking" />
         <activity android:name=".FinalScore" />
         <activity android:name=".Game" />
         <activity android:name=".MainActivity">

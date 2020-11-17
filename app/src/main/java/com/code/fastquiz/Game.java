@@ -2,16 +2,24 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -21,7 +29,7 @@ import java.util.Random;
  */
 public class Game extends AppCompatActivity {
     private int total_questions, num_questions_count;
-    private Button answer1,answer2,answer3,answer4;
+    private Button answer1, answer2, answer3, answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
     private boolean checking, questions_with_images;
@@ -29,29 +37,41 @@ public class Game extends AppCompatActivity {
     private Player player;
     private TextView scoreView, questions_count;
     private ImageView imageView_question;
+    private TextView countDownTextView;
+    private CountDownTimer countDownTimer;
+    private long timeLeftInMillis;
+    private static final long COUNTDOWN_IN_MILLIS = 30000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
+        boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+        if (isNightModeEnabled) {
+            setTheme(R.style.darkTheme);
+        } else {
+            setTheme(R.style.FastQuizTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         Intent mIntent = getIntent();
         int playerMode = mIntent.getIntExtra("mode", 0);
         int images = mIntent.getIntExtra("images", 0);
-
+        Toolbar toolb = findViewById(R.id.app_bar);
+        setSupportActionBar(toolb);
+        toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
         Initializer ini = new Initializer();
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_fastquiz);
-        if(playerMode==1){
+
+        if (playerMode == 1) {
             this.total_questions = 5;
-        }else if(playerMode==2){
+        } else if (playerMode == 2) {
             this.total_questions = ini.init_size();
         }
-        this.questions_with_images = images==1;
+        this.questions_with_images = images == 1;
 
         this.num_questions_count = 0;
         this.arrayQuestions = ini.getQuestion(this.total_questions, this.questions_with_images);
-        if(!this.questions_with_images && playerMode==2){
+        if (!this.questions_with_images && playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();
         }
         this.player = new Player();
@@ -63,6 +83,7 @@ public class Game extends AppCompatActivity {
         this.scoreView = findViewById(R.id.score);
         this.questions_count = findViewById(R.id.questions_count);
         this.imageView_question = findViewById(R.id.imageView_question);
+        this.countDownTextView = findViewById(R.id.countDownText);
         updateScore();
     }
     @Override
@@ -115,6 +136,63 @@ public class Game extends AppCompatActivity {
                 break;
             }
         }
+        checkingAnswer(true,checking);
+    }
+
+    /**
+     * Método que establece la información de la pregunta en el layout
+     *
+     */
+    private void playGame(){
+        imageView_question.setVisibility(View.GONE);
+        if(this.arrayQuestions.size()>0) {
+            Random rnd = new Random(System.currentTimeMillis() * 1000);
+            question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
+
+            answer1.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer2.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer3.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer4.setBackgroundColor(Color.parseColor("#b75c4c"));
+            question.setText(question_to_show.getQuestion());
+
+            if(this.questions_with_images && this.question_to_show.isImage()) {
+                int imgRsc =  getResources().getIdentifier(this.question_to_show.getPath(), "drawable", getApplicationContext().getPackageName());
+                imageView_question.setVisibility(ImageView.VISIBLE);
+                imageView_question.setImageDrawable(getResources().getDrawable(imgRsc));
+            }
+            answer1.setText(question_to_show.getAnswer());
+            answer2.setText(question_to_show.getAnswer());
+            answer3.setText(question_to_show.getAnswer());
+            answer4.setText(question_to_show.getAnswer());
+            timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+            StartCountDown();
+            answer1.setEnabled(true);
+            answer2.setEnabled(true);
+            answer3.setEnabled(true);
+            answer4.setEnabled(true);
+        }else{
+            initScoreActivity();
+        }
+    }
+    private void StartCountDown(){
+        this.countDownTimer = new CountDownTimer(timeLeftInMillis,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+            timeLeftInMillis = 0;
+            updateCountDownText();
+            checkingAnswer(false,false);
+            }
+        }.start();
+    }
+
+    private void checkingAnswer(boolean answered, boolean checking){
+        countDownTimer.cancel();
         answer1.setEnabled(false);
         answer2.setEnabled(false);
         answer3.setEnabled(false);
@@ -130,41 +208,17 @@ public class Game extends AppCompatActivity {
 
         }
         updateScore();
-        showPopUp(checking);
+        showPopUp(answered, checking);
     }
+    private void updateCountDownText() {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
 
-    /**
-     * Método que establece la información de la pregunta en el layout
-     *
-     */
-    private void playGame(){
-        imageView_question.setVisibility(View.GONE);
-        if(this.arrayQuestions.size()>0) {
-            Random rnd = new Random(System.currentTimeMillis() * 1000);
-            question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
+        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        countDownTextView.setText(timeFormatted);
 
-            answer1.setBackgroundColor(R.drawable.button_answer);
-            answer2.setBackgroundColor(R.drawable.button_answer);
-            answer3.setBackgroundColor(R.drawable.button_answer);
-            answer4.setBackgroundColor(R.drawable.button_answer);
-            question.setText(question_to_show.getQuestion());
-
-            if(this.questions_with_images && this.question_to_show.isImage()) {
-                int imgRsc =  getResources().getIdentifier(this.question_to_show.getPath(), "drawable", getApplicationContext().getPackageName());
-                imageView_question.setVisibility(ImageView.VISIBLE);
-                imageView_question.setImageDrawable(getResources().getDrawable(imgRsc));
-            }
-            answer1.setText(question_to_show.getAnswer());
-            answer2.setText(question_to_show.getAnswer());
-            answer3.setText(question_to_show.getAnswer());
-            answer4.setText(question_to_show.getAnswer());
-
-            answer1.setEnabled(true);
-            answer2.setEnabled(true);
-            answer3.setEnabled(true);
-            answer4.setEnabled(true);
-        }else{
-            initScoreActivity();
+        if (timeLeftInMillis < 10000) {
+            countDownTextView.setTextColor(Color.RED);
         }
     }
     /**
@@ -173,45 +227,53 @@ public class Game extends AppCompatActivity {
      * @param correct boolean si la respuesta es correcta o no
      * @return Dialog
      */
-    public Dialog showPopUp(boolean correct) {
+    public Dialog showPopUp(boolean answered, boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        String popUpTitle;
-        if(this.player.getScore()>0 && this.num_questions_count<this.total_questions) {
-            if (correct) {
-                popUpTitle = getString(R.string.popUpCorrect);
-            } else {
-                popUpTitle = getString(R.string.popUpIncorrect);
-            }
-            popUp.setTitle(popUpTitle)
-                    .setMessage("Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
-                    .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            playGame();
-                            dialog.cancel();
-                        }
-                    })
-                    .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            initScoreActivity();
-                        }
-                    });
+        String popUpTitle = "", message = "";
+        if(!answered) {
+            popUpTitle = "TIMEOUT";
+            message = "No has respondido a tiempo a la pregunta.\n";
         }else{
-            String tittle,text;
-            if(this.player.getScore()>0 && this.num_questions_count>=this.total_questions){
-                tittle = getString(R.string.finalTittle);
-                text = getString(R.string.popFinish);
+            if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
+                if (correct) {
+                    popUpTitle = getString(R.string.popUpCorrect);
+                } else {
+                    popUpTitle = getString(R.string.popUpIncorrect);
+                }
             }else{
-                tittle = getString(R.string.popUpOver);
-                text = getString(R.string.popOverr);
+                if (this.player.getScore() > 0 && this.num_questions_count >= this.total_questions) {
+                    popUpTitle = getString(R.string.finalTittle);
+                    message = getString(R.string.popFinish);
+                }else{
+                    popUpTitle = getString(R.string.popUpOver);
+                    message = getString(R.string.popOverr);
+                }
             }
-            popUp.setTitle(tittle)
-                .setMessage(text)
-                .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        initScoreActivity();
-                    }
-                });
         }
+            if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
+                popUp.setTitle(popUpTitle)
+                        .setMessage(message + "Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
+                        .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                playGame();
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                initScoreActivity();
+                            }
+                        });
+            } else {
+                popUp.setTitle(popUpTitle)
+                        .setMessage(message)
+                        .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                initScoreActivity();
+                            }
+                        });
+            }
+
         return popUp.show();
     }
 

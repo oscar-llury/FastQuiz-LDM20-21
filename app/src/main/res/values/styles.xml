@@ -1,28 +1,36 @@
 <resources>
+    <!-- Base Theme -->
+    <!-- Light base theme-->
+    <style name="FastQuizTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/colorAccent_light</item>
+        <item name="backgroundColor">@color/background_light</item>
 
-    <style name="FastQuizTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="primaryTextColor">@color/primaryTextColor_light</item>
+        <item name="secondaryTextColor">@color/primaryDarkColor</item>
 
-        <!-- action bar -->
-        <item name="windowActionBarOverlay">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <!--<item name="colorPrimary">@android:color/transparent</item>-->
-        <item name="colorPrimary">@color/MenuColor</item>
-        <item name="android:textColorPrimary">@color/textColor</item>
-        <item name="android:textColor">@color/textColor</item>
+        <item name="dividerColor">#F2F2F3</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+    <!-- Dark base theme -->
+    <style name="darkTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <!-- mobile notification bar -->
-        <item name="colorPrimaryDark">@color/MenuColor</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/colorAccent_dark</item>
+        <item name="backgroundColor">@color/background_dark</item>
 
-        <!-- background -->
-        <item name="android:windowBackground">@color/background</item>
+        <item name="primaryTextColor">@color/primaryTextColor_dark</item>
+        <item name="secondaryTextColor">@color/primaryDarkColor</item>
 
-        <!-- navigation bar -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="dividerColor">#F2F2F3</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
 
-        <!-- controls, checkbox and text fields -->
-        <item name="colorAccent">@color/colorPrimaryDark</item>
-
-        <item name="actionMenuTextColor">@color/colorPrimary</item>
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>

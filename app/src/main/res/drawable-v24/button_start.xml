@@ -2,12 +2,12 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid
-        android:color="@color/MenuColor" >
+        android:color="@color/primaryColor" >
     </solid>
 
     <stroke
         android:width="5dp"
-        android:color="@color/MenuColor">
+        android:color="@color/primaryColor">
     </stroke>
 
     <corners
