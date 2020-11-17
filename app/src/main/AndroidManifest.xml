@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".ConfigActivity"></activity>
         <activity android:name=".ManualActivity" />
         <activity android:name=".Ranking" />
         <activity android:name=".FinalScore" />

@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent manual = new Intent(this, ManualActivity.class);
                 startActivity(manual);
                 break;
+            case R.id.config:
+                    Intent config = new Intent(this, ConfigActivity.class);
+                    startActivity(config);
+                    break;
         }
         return super.onOptionsItemSelected(item);
     }

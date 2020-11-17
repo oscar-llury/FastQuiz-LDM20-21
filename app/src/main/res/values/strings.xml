@@ -39,7 +39,14 @@
     <!-- activity_ranking -->
     <string name="this_ranking">Ranking FastQuiz</string>
 
+    <!-- activity_config -->
+    <string name="Boton1">Según la configuración del sistema</string>
+    <string name="Boton2">Modo Claro</string>
+    <string name="Boton3">Modo Nocturno</string>
 
+    <!-- activity menu -->
+    <string name="menu_item1">Manual de la App</string>
+    <string name="menu_item2">Configuración</string>
     <!-- Activity Manual -->
     <string name="user_manual">Manual de usuario</string>
     <string name="manual_1">Bienvenido a Fast Quiz!
@@ -58,7 +65,7 @@
         seguir jugando!</string>
 
 
-        <string name="manual_5">Finalmente, como vemos en la imagen, saldrá la puntuación que has obtenido, si ingresas tu
+    <string name="manual_5">Finalmente, como vemos en la imagen, saldrá la puntuación que has obtenido, si ingresas tu
         nombre y presionas el botón de guardar, tu puntuación quedará para la historia.
         ¿A qué esperas para empezar a jugar?</string>
 
