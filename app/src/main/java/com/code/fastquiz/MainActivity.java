@@ -26,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch have_images, switch1;
     private boolean isNightModeEnabled;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+        prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
+        this.isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+        //if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES||this.isNightModeEnabled){
             setTheme(R.style.darkTheme);
         }else{
             setTheme(R.style.FastQuizTheme);
@@ -47,18 +51,25 @@ public class MainActivity extends AppCompatActivity {
         textView8.setText("prueba");
 
         switch1=(Switch)findViewById(R.id.switch1);
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES||this.isNightModeEnabled){
             switch1.setChecked(true);
         }
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = prefs.edit();
                 if(isChecked){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor.putBoolean("NIGHT_MODE", true);
+
                 }else{
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor.putBoolean("NIGHT_MODE", false);
                 }
-                restart();
+                editor.apply();
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -89,56 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(activity);
             }
         });
-    }
-
-    public void restart(){
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
-        finish();
-    }
-
-    public void checkTheme(){
-
-
-        //código que debe ir en ajustes
-        SharedPreferences prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("NIGHT_MODE", !this.isNightModeEnabled);
-        editor.commit();
-        //finish();
-        checkTheme();
-
-        /*
-        SharedPreferences prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
-
-        this.isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
-
-*/
-/*
-        if (!this.isNightModeEnabled) {
-            Toast.makeText(getApplicationContext(), "LIGHT", Toast.LENGTH_SHORT).show();
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }else {
-            Toast.makeText(getApplicationContext(), "DARK", Toast.LENGTH_SHORT).show();
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }*/
-
-        /*
-        switch (AppCompatDelegate.getDefaultNightMode()) {
-            case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
-                Toast.makeText(getApplicationContext(),"SYSTEM", Toast.LENGTH_SHORT).show();
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_YES:
-                Toast.makeText(getApplicationContext(),"DARK", Toast.LENGTH_SHORT).show();
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_NO:
-                Toast.makeText(getApplicationContext(),"LIGHT", Toast.LENGTH_SHORT).show();
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-        }
-*/
     }
 
     public void initRankingActivity(View view){
