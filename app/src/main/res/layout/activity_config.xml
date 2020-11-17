@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConfigActivity">
+    tools:context=".ConfigActivity"
+    android:background="?attr/backgroundColor">
+
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
@@ -21,28 +23,16 @@
 
 
         <RadioButton
-            android:id="@+id/radioButton_follow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/Boton1"
-            android:textColor="@color/textColor"
-            android:checked="true"
-            app:layout_constraintBottom_toTopOf="@+id/radioButton_Light"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioButton_follow" />
-
-        <RadioButton
             android:id="@+id/radioButton_Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/Boton2"
-            android:textColor="@color/textColor"
+            android:textColor="?attr/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioButton_Dark" />
+            app:layout_constraintTop_toBottomOf="@+id/radioButton_Dark"
+            android:buttonTint="?attr/colorAccent" />
 
         <RadioButton
             android:id="@+id/radioButton_Dark"
@@ -50,10 +40,29 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/Boton3"
-            android:textColor="@color/textColor"
+            android:textColor="?attr/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            android:buttonTint="?attr/colorAccent" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/button_aply_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Button"
+        android:textSize="12sp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="?attr/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup_config"
+        android:background="?attr/colorPrimary"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

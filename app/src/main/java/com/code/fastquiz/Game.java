@@ -44,7 +44,7 @@ public class Game extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
         boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
         if (isNightModeEnabled) {
             setTheme(R.style.darkTheme);

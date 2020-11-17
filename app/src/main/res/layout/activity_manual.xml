@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:layout_editor_absoluteX="8dp"
-    tools:layout_editor_absoluteY="8dp">
+    tools:layout_editor_absoluteY="8dp"
+    android:background="?attr/backgroundColor">
 
     <include
         android:id="@+id/app_bar"
@@ -19,9 +20,10 @@
         android:padding="10dp"
         android:text="@string/user_manual"
         android:textAlignment="center"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="23sp"
         android:textStyle="bold"
-        android:typeface="sans" />
+        android:fontFamily="@font/roboto_bold"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
                 android:padding="10dp"
-                android:text="@string/manual_1" />
+                android:text="@string/manual_1"
+                android:textColor="?attr/primaryTextColor"/>
 
 
             <TextView
@@ -49,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/manual_2"
-                android:fontFamily="@font/roboto_medium" />
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
 
 
             <ImageView
@@ -68,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/manual_3"
-                android:fontFamily="@font/roboto_medium" />
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -77,7 +82,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:contentDescription="@string/ImageManual2"
-                app:srcCompat="@drawable/manual2" />
+                app:srcCompat="@drawable/manual2"
+                android:textColor="?attr/primaryTextColor"/>
 
             <TextView
                 android:id="@+id/textView5"
@@ -85,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/manual_4"
-                android:fontFamily="@font/roboto_medium" />
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -102,7 +109,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/manual_5"
-                android:fontFamily="@font/roboto_medium" />
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
@@ -110,7 +118,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:contentDescription="@string/ImageManual2"
-                app:srcCompat="@drawable/manual4" />
+                app:srcCompat="@drawable/manual4"
+                android:textColor="?attr/primaryTextColor"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

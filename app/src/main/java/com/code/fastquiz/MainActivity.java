@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private  RadioGroup question_group;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch have_images, switch1;
-    private boolean isNightModeEnabled;
-    private SharedPreferences prefs;
+    private Switch have_images;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,10 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prefs = getSharedPreferences("NIGHT_MODE", Context.MODE_PRIVATE);
-        this.isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
-        //if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES||this.isNightModeEnabled){
+        SharedPreferences prefs = getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
+        boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+        if(isNightModeEnabled){
             setTheme(R.style.darkTheme);
         }else{
             setTheme(R.style.FastQuizTheme);
@@ -80,29 +77,6 @@ public class MainActivity extends AppCompatActivity {
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
         TextView textView8 = findViewById(R.id.textViewprueba);
         textView8.setText("prueba");
-
-        switch1=(Switch)findViewById(R.id.switch1);
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES||this.isNightModeEnabled){
-            switch1.setChecked(true);
-        }
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = prefs.edit();
-                if(isChecked){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    editor.putBoolean("NIGHT_MODE", true);
-
-                }else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    editor.putBoolean("NIGHT_MODE", false);
-                }
-                editor.apply();
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
 
         startButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
