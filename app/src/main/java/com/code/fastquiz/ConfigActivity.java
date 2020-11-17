@@ -2,14 +2,23 @@ package com.code.fastquiz;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class ConfigActivity extends AppCompatActivity {
     @Override
@@ -18,6 +27,11 @@ public class ConfigActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_config, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    private RadioGroup radioGroup_config;
+    private RadioButton radioButton_follow, radioButton_Light, radioButton_Dark;
+    private SharedPreferences prefs;
+    private boolean followSystemMode, isNightModeEnabled;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -40,6 +54,19 @@ public class ConfigActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        prefs = this.getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
+        this.followSystemMode = prefs.getBoolean("FOLLOW_SYSTEM_MODE", true);
+        this.isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
+
+        if(this.followSystemMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }else if(this.isNightModeEnabled){
+            setTheme(R.style.darkTheme);
+        }else{
+            setTheme(R.style.FastQuizTheme);
+        }
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
         Toolbar toolb =findViewById(R.id.app_bar);
@@ -52,6 +79,60 @@ public class ConfigActivity extends AppCompatActivity {
             }
         });
 
+
+
+/*
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("FOLLOW_SYSTEM_MODE", false);
+        editor.apply();
+*/
+
+        //Toast.makeText(getApplicationContext(), ""+this.followSystemMode, Toast.LENGTH_SHORT).show();
+        Button button_aply_mode = findViewById(R.id.button_aply_mode);
+        radioGroup_config = findViewById(R.id.radioGroup_config);
+        this.radioButton_follow=findViewById(R.id.radioButton_follow);
+        this.radioButton_Light=findViewById(R.id.radioButton_Light);
+        this.radioButton_Dark=findViewById(R.id.radioButton_Dark);
+
+
+        if(this.followSystemMode){
+            this.radioButton_follow.setChecked(true);
+        }else if(this.isNightModeEnabled){
+            this.radioButton_Dark.setChecked(true);
+        }else{
+            this.radioButton_Light.setChecked(true);
+        }
+
+        button_aply_mode.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = prefs.edit();
+                int selectedRadioButt = radioGroup_config.getCheckedRadioButtonId();
+
+                if(selectedRadioButt==R.id.radioButton_follow){
+                    Toast.makeText(getApplicationContext(), "SYSTEM", Toast.LENGTH_SHORT).show();
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    editor.putBoolean("FOLLOW_SYSTEM_MODE", true);
+                }else if(selectedRadioButt==R.id.radioButton_Light){
+                    Toast.makeText(getApplicationContext(), "LIGHT", Toast.LENGTH_SHORT).show();
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor.putBoolean("NIGHT_MODE", false);
+                    editor.putBoolean("FOLLOW_SYSTEM_MODE", false);
+                }else if(selectedRadioButt==R.id.radioButton_Dark){
+                    Toast.makeText(getApplicationContext(), "DARK", Toast.LENGTH_SHORT).show();
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor.putBoolean("NIGHT_MODE", true);
+                    editor.putBoolean("FOLLOW_SYSTEM_MODE", false);
+                }
+                editor.apply();
+                Intent i = new Intent(getApplicationContext(), ConfigActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
     }
 
+    private boolean getPref_followSystemMode(){
+        return prefs.getBoolean("FOLLOW_SYSTEM_MODE", true);
+    }
 }
