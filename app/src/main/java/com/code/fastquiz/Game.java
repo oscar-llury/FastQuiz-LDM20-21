@@ -12,19 +12,13 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Random;
 
@@ -74,14 +68,9 @@ public class Game extends AppCompatActivity {
             this.total_questions = ini.init_size();
         }
         this.questions_with_images = images == 1;
+
         this.num_questions_count = 0;
-
-        boolean first_time = prefs.getBoolean("FIRST_TIME", true);
-        if(!first_time){
-            this.arrayQuestions = loadFileQuestions(this.total_questions, this.questions_with_images);
-        }
-
-        //this.arrayQuestions = ini.getQuestion(this.total_questions, this.questions_with_images);
+        this.arrayQuestions = ini.getQuestion(this.total_questions, this.questions_with_images);
         if (!this.questions_with_images && playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();
         }
@@ -310,61 +299,5 @@ public class Game extends AppCompatActivity {
             this.scoreView.setText("0");
         }
         this.questions_count.setText(this.num_questions_count+"/"+this.total_questions);
-    }
-
-
-    public ArrayList<Question> loadFileQuestions(int numquest, boolean withImages){
-
-        try {
-            InputStreamReader archivo = new InputStreamReader(openFileInput("questions.txt"));
-            BufferedReader fin = new BufferedReader(archivo);
-            String texto = fin.readLine() + "\n";
-            String textocomp = "";
-
-            while(texto != null){
-                textocomp = textocomp + texto + "\n";
-                texto = fin.readLine();
-            }
-            fin.close();
-            archivo.close();
-            TextView textView8 = findViewById(R.id.textViewprueba);
-            textView8.setText(textocomp);
-            Toast.makeText(this,"Archivo leido",Toast.LENGTH_SHORT).show();
-
-
-            /*
-            if (numquest <= this.list_questions.size()) {
-                ArrayList<Question> arrayQuestions;
-                Random rnd = new Random(System.currentTimeMillis() * 17000);
-                Collections.shuffle(this.list_questions,rnd);
-                if(withImages) {
-                    arrayQuestions= new ArrayList<>(this.list_questions.subList(0, numquest));
-                }else{
-                    arrayQuestions = new ArrayList<>();
-                    Iterator<Question> it = this.list_questions.iterator();
-                    int cont = 0;
-                    while(it.hasNext() && cont<numquest){
-                        Question q = it.next();
-                        if(!q.isImage()) {
-                            arrayQuestions.add(q);
-                            cont++;
-                        }
-                    }
-                }
-                Random rnd2 = new Random(System.currentTimeMillis() * 23000);
-                Collections.shuffle(arrayQuestions,rnd2);
-                return arrayQuestions;
-            } else {
-                System.err.println("Se ha producido un error. El número de preguntas almacenado es inferior al solicitado.");
-                return null;
-            }
-            */
-
-            return null;
-        } catch (IOException e) {
-            Log.e("Ficheros", "Error al leer fichero desde memoria interna");
-            return null;
-        }
-
     }
 }

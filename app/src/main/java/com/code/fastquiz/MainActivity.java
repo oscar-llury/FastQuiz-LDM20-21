@@ -22,12 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
 /**
  * Clase inicial de la aplicación
  *
@@ -82,15 +76,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
         TextView textView8 = findViewById(R.id.textViewprueba);
-
-        boolean first_time = prefs.getBoolean("FIRST_TIME", true);
-        if(first_time){
-            Toast.makeText(this, "first time", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("FIRST_TIME", false);
-            editor.apply();
-            createFileQuestions();
-        }
+        textView8.setText("prueba");
 
         startButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -124,29 +110,6 @@ public class MainActivity extends AppCompatActivity {
     public void initRankingActivity(View view){
         Intent activity = new Intent(MainActivity.this, Ranking.class);
         startActivity(activity);
-    }
-
-    public void createFileQuestions(){
-
-        try {
-            //callFileOutput();
-            OutputStreamWriter fout =
-                    new OutputStreamWriter(
-                            openFileOutput("questions.txt", Context.MODE_PRIVATE));
-            fout.write("¿Cuál es la capital de Mongolia?" + "\n");
-            fout.write("Estambul" + "\n");
-            fout.write("Ulan Bator" + "\n");
-            fout.write("Madrid" + "\n");
-            fout.write("Tokio" + "\n");
-            fout.flush();
-            fout.close();
-            Toast.makeText(this,"Archivo escrito",Toast.LENGTH_SHORT).show();
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }catch (IOException e) {
-            Log.e("Ficheros", "Error al escribir fichero en mem.int");
-            Toast.makeText(this,"Error en el archivo",Toast.LENGTH_SHORT).show();
-        }
     }
 
 }
