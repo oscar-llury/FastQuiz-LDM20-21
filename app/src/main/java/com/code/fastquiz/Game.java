@@ -71,16 +71,17 @@ public class Game extends AppCompatActivity {
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
 
+        this.questions_with_images = images == 1;
         QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
         this.num_questions_count = 0;
-        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(),this.total_questions, this.questions_with_images);
+        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(), this.questions_with_images);
 
         if (playerMode == 1) {
             this.total_questions = 5;
         } else if (playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();
         }
-        this.questions_with_images = images == 1;
+
 
         if (!this.questions_with_images && playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();

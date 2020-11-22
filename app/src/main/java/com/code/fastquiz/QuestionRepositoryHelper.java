@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class QuestionRepositoryHelper extends AppCompatActivity {
 
-    public ArrayList<Question> readQuestionRepository(String json, int numquest, boolean withImages){
+    public ArrayList<Question> readQuestionRepository(String json, boolean withImages){
 
         try {
             JSONArray jsonArray = new JSONArray(json);
