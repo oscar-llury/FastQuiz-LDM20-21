@@ -25,7 +25,8 @@
     <string name="popUpOver">Game Over!</string>
     <string name="popOverr">No tienes puntos para poder seguir jugando</string>
     <string name="popFinish">Enhorabuena, has llegado al fin de la partida. Hasta pronto!</string>
-
+    <string name="popTimeOut">TIMEOUT</string>
+    <string name="popTimeOut_message">No has respondido a tiempo a la pregunta.\n</string>
 
     <!-- activity_finalscore -->
     <string name="your_score">Tu puntuación:</string>
@@ -48,6 +49,7 @@
     <!-- activity menu -->
     <string name="menu_item1">Manual de la App</string>
     <string name="menu_item2">Configuración</string>
+
     <!-- Activity Manual -->
     <string name="user_manual">Manual de usuario</string>
     <string name="manual_1">Bienvenido a Fast Quiz!
@@ -72,4 +74,5 @@
 
     <string name="ImageManual1"> Imagen del manual, corresponde a los botones de selección del modo de juego</string>
     <string name="ImageManual2"> Imagen del manual, corresponde al switch del deseo de tener imágenes o no</string>
+
 </resources>

@@ -1,9 +1,7 @@
 package com.code.fastquiz;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
@@ -11,17 +9,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,16 +30,15 @@ import java.util.Random;
  * @author Carlos González, Óscar Rivas
  */
 public class Game extends AppCompatActivity {
+
     private int total_questions, num_questions_count;
     private Button answer1, answer2, answer3, answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
-    private boolean checking, questions_with_images;
-    private TextView question;
+    private boolean checking, questions_with_images, minuteIsPlaying;
+    private TextView question, countDownTextView, scoreView, questions_count;
     private Player player;
-    private TextView scoreView, questions_count;
     private ImageView imageView_question;
-    private TextView countDownTextView;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private static final long COUNTDOWN_IN_MILLIS = 15000;
@@ -65,24 +59,30 @@ public class Game extends AppCompatActivity {
         Intent mIntent = getIntent();
         int playerMode = mIntent.getIntExtra("mode", 0);
         int images = mIntent.getIntExtra("images", 0);
+
         Toolbar toolb = findViewById(R.id.app_bar);
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
-        Initializer ini = new Initializer();
+
+        QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
+        this.num_questions_count = 0;
+        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(),this.total_questions, this.questions_with_images);
 
         if (playerMode == 1) {
             this.total_questions = 5;
         } else if (playerMode == 2) {
-            this.total_questions = ini.init_size();
+            this.total_questions = this.arrayQuestions.size();
         }
         this.questions_with_images = images == 1;
 
-        QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
-                this.num_questions_count = 0;
-        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(),this.total_questions, this.questions_with_images);
         if (!this.questions_with_images && playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();
         }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.minuteIsPlaying=false;
         this.player = new Player();
         this.question = findViewById(R.id.question_text);
         this.answer1 = findViewById(R.id.button_answer1);
@@ -94,10 +94,6 @@ public class Game extends AppCompatActivity {
         this.imageView_question = findViewById(R.id.imageView_question);
         this.countDownTextView = findViewById(R.id.countDownText);
         updateScore();
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
         playGame();
     }
     /**
@@ -111,13 +107,8 @@ public class Game extends AppCompatActivity {
             case R.id.button_answer1: {
                 checking = question_to_show.checkCorrectAnswer(1);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
                     answer1.setBackgroundColor(Color.GREEN);
-
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
                     answer1.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -125,12 +116,8 @@ public class Game extends AppCompatActivity {
             case R.id.button_answer2: {
                 checking = question_to_show.checkCorrectAnswer(2);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
                     answer2.setBackgroundColor(Color.GREEN);
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
                     answer2.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -138,12 +125,8 @@ public class Game extends AppCompatActivity {
             case R.id.button_answer3: {
                 checking = question_to_show.checkCorrectAnswer(3);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
                     answer3.setBackgroundColor(Color.GREEN);
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
                     answer3.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -152,12 +135,8 @@ public class Game extends AppCompatActivity {
 
                 checking = question_to_show.checkCorrectAnswer(4);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
                     answer4.setBackgroundColor(Color.GREEN);
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
                     answer4.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -236,27 +215,34 @@ public class Game extends AppCompatActivity {
         this.arrayQuestions.remove(question_to_show);
 
         if(checking){
+            mp = MediaPlayer.create(this, R.raw.correcto);
+            mp.start();
             this.player.increaseScore();
         }else{
+            mp = MediaPlayer.create(this, R.raw.incorrecto);
+            mp.start();
             this.player.decreaseScore();
-
         }
         updateScore();
         showPopUp(answered, checking);
     }
     private void updateCountDownText() {
-        int minutes = (int) (timeLeftInMillis / 1000) / 60;
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
 
-        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        String timeFormatted = String.format(Locale.getDefault(), "%02d", seconds);
         countDownTextView.setText(timeFormatted);
 
         if (timeLeftInMillis < 10000) {
-            mp1 = MediaPlayer.create(this,R.raw.minute);
-            mp1.start();
-            countDownTextView.setTextColor(Color.RED);
+            if(!this.minuteIsPlaying) {
+                this.minuteIsPlaying=true;
+                mp1 = MediaPlayer.create(this, R.raw.minute);
+                mp1.start();
+                countDownTextView.setTextColor(Color.RED);
+            }
             if (timeLeftInMillis == 0 && mp1.isPlaying()){
                 mp1.stop();
+                mp = MediaPlayer.create(this, R.raw.incorrecto);
+                mp.start();
             }
         }
     }
@@ -270,8 +256,8 @@ public class Game extends AppCompatActivity {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         String popUpTitle = "", message = "";
         if(!answered) {
-            popUpTitle = "TIMEOUT";
-            message = "No has respondido a tiempo a la pregunta.\n";
+            popUpTitle = getString(R.string.popTimeOut);
+            message = getString(R.string.popTimeOut_message);
         }else{
             if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
                 if (correct) {
@@ -341,7 +327,7 @@ public class Game extends AppCompatActivity {
     }
 
     private String loadJSONFromAsset() {
-        String json = null;
+        String json;
         try {
             InputStream is = getApplicationContext().getAssets().open("questionRepository.json");
             int size = is.available();
