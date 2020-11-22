@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 public class ManualActivity extends AppCompatActivity {
     @Override
@@ -55,5 +56,17 @@ public class ManualActivity extends AppCompatActivity {
         Toolbar toolb =findViewById(R.id.app_bar);
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
+        ImageView image1 = findViewById(R.id.imageView_manual1);
+        ImageView image2 = findViewById(R.id.imageView_manual2);
+        ImageView image3 = findViewById(R.id.imageView_manual3);
+        ImageView image4 = findViewById(R.id.imageView_manual4);
+        ImageView image5 = findViewById(R.id.imageView_manual5);
+        if(isNightModeEnabled){
+            image1.setImageResource(R.drawable.manual1_dark);
+            image2.setImageResource(R.drawable.manual2_dark);
+            image3.setImageResource(R.drawable.manual3_dark);
+            image4.setImageResource(R.drawable.manual4_dark);
+            image5.setImageResource(R.drawable.manual5_dark);
+        }
     }
 }

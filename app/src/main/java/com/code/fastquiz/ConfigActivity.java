@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class ConfigActivity extends AppCompatActivity {
 
@@ -84,10 +83,8 @@ public class ConfigActivity extends AppCompatActivity {
                 int selectedRadioButt = radioGroup_config.getCheckedRadioButtonId();
 
                 if(selectedRadioButt==R.id.radioButton_Light){
-                    Toast.makeText(getApplicationContext(), "LIGHT", Toast.LENGTH_SHORT).show();
                     editor.putBoolean("NIGHT_MODE", false);
                 }else if(selectedRadioButt==R.id.radioButton_Dark){
-                    Toast.makeText(getApplicationContext(), "DARK", Toast.LENGTH_SHORT).show();
                     editor.putBoolean("NIGHT_MODE", true);
                 }
                 editor.apply();
