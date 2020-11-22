@@ -77,13 +77,9 @@ public class Game extends AppCompatActivity {
         }
         this.questions_with_images = images == 1;
 
-
         QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
-        qrh.readQuestionRepository(loadJSONFromAsset());
-
-
-        this.num_questions_count = 0;
-        this.arrayQuestions = ini.getQuestion(this.total_questions, this.questions_with_images);
+                this.num_questions_count = 0;
+        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(),this.total_questions, this.questions_with_images);
         if (!this.questions_with_images && playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();
         }
