@@ -21,5 +21,335 @@
         "isCorrect": false
       }
     ]
+  },
+  {
+    "id": 2,
+    "question": "¿Quién escribió el Quijote?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Miguel de Unamuno",
+        "isCorrect": false
+      },
+      {
+        "answer": "Federico García Lorca",
+        "isCorrect": false
+      },
+      {
+        "answer": "Miguel de Cervantes",
+        "isCorrect": true
+      },
+      {
+        "answer": "Gaspar Melchor de Jovellanos",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "¿Quién descubrió América?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Cristiano Ronaldo",
+        "isCorrect": false
+      },
+      {
+        "answer": "Messi",
+        "isCorrect": false
+      },
+      {
+        "answer": "Cristóbal Colón",
+        "isCorrect": true
+      },
+      {
+        "answer": "Hernán Cortés",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "¿Cuándo acabó la 2º Guerra Mundial?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "1936",
+        "isCorrect": false
+      },
+      {
+        "answer": "1938",
+        "isCorrect": false
+      },
+      {
+        "answer": "1942",
+        "isCorrect": false
+      },
+      {
+        "answer": "1945",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "¿Cuál es el océano más grande del mundo?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Pacífico",
+        "isCorrect": true
+      },
+      {
+        "answer": "Índico",
+        "isCorrect": false
+      },
+      {
+        "answer": "Atlántico",
+        "isCorrect": false
+      },
+      {
+        "answer": "Antártico",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "¿Cómo se llama la reina de Inglaterra?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Maria",
+        "isCorrect": false
+      },
+      {
+        "answer": "Elisa",
+        "isCorrect": false
+      },
+      {
+        "answer": "Isabel",
+        "isCorrect": true
+      },
+      {
+        "answer": "Juana",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "¿Cuál es el río más largo del mundo?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Nilo",
+        "isCorrect": false
+      },
+      {
+        "answer": "Sena",
+        "isCorrect": false
+      },
+      {
+        "answer": "Danubio",
+        "isCorrect": false
+      },
+      {
+        "answer": "Amazonas",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "¿A qué se dedica la siguiente persona?",
+    "image": true,
+    "path": "martin",
+    "answers": [
+      {
+        "answer": "Modelo",
+        "isCorrect": false
+      },
+      {
+        "answer": "Futbolista",
+        "isCorrect": false
+      },
+      {
+        "answer": "DJ",
+        "isCorrect": true
+      },
+      {
+        "answer": "Presentador de TV",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "¿Dónde se originaron los juegos olímpicos?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Italia",
+        "isCorrect": false
+      },
+      {
+        "answer": "Francia",
+        "isCorrect": false
+      },
+      {
+        "answer": "Grecia",
+        "isCorrect": true
+      },
+      {
+        "answer": "EEUU",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "¿Quién es el famoso rey del Rock de EEUU?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Michael Jackson",
+        "isCorrect": false
+      },
+      {
+        "answer": "Elvis Presley",
+        "isCorrect": true
+      },
+      {
+        "answer": "Elton John",
+        "isCorrect": false
+      },
+      {
+        "answer": "Fredie Mercury",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "¿A qué país pertenecen los cariocas?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Brasil",
+        "isCorrect": true
+      },
+      {
+        "answer": "Chile",
+        "isCorrect": false
+      },
+      {
+        "answer": "Venezuela",
+        "isCorrect": false
+      },
+      {
+        "answer": "Colombia",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Identifica a la siguiente persona",
+    "image": true,
+    "path": "jeff",
+    "answers": [
+      {
+        "answer": "Bill Gates",
+        "isCorrect": false
+      },
+      {
+        "answer": "Mark Zuckemberg",
+        "isCorrect": false
+      },
+      {
+        "answer": "Jeff Bezos",
+        "isCorrect": true
+      },
+      {
+        "answer": "Sundar Pichai",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Identifica el país",
+    "image": true,
+    "path": "mongolia",
+    "answers": [
+      {
+        "answer": "España",
+        "isCorrect": false
+      },
+      {
+        "answer": "Filipinas",
+        "isCorrect": false
+      },
+      {
+        "answer": "Mongolia",
+        "isCorrect": true
+      },
+      {
+        "answer": "China",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "¿A qué empresa pertenece este logo?",
+    "image": true,
+    "path": "logomc",
+    "answers": [
+      {
+        "answer": "Burger King",
+        "isCorrect": false
+      },
+      {
+        "answer": "McDonalds",
+        "isCorrect": true
+      },
+      {
+        "answer": "KFC",
+        "isCorrect": false
+      },
+      {
+        "answer": "Taco Bell",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "¿A qué empresa pertenece este logo?",
+    "image": true,
+    "path": "adidas",
+    "answers": [
+      {
+        "answer": "Nike",
+        "isCorrect": false
+      },
+      {
+        "answer": "Reebok",
+        "isCorrect": false
+      },
+      {
+        "answer": "New Balance",
+        "isCorrect": false
+      },
+      {
+        "answer": "Adidas",
+        "isCorrect": true
+      }
+    ]
+  },
+  {
   }
+
 ]
