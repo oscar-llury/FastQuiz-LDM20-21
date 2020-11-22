@@ -1,24 +1,20 @@
 package com.code.fastquiz;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 
 public class Ranking extends AppCompatActivity {
-
-    private AdminSQLiteOpenHelper dataBase_helper;
-    private SQLiteDatabase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +29,12 @@ public class Ranking extends AppCompatActivity {
         setContentView(R.layout.activity_ranking);
         ListView rankingListView = findViewById(R.id.rankingListView);
 
-        dataBase_helper = new AdminSQLiteOpenHelper(this, "fastQuiz_bbdd", null, 1);
-        dataBase = dataBase_helper.getWritableDatabase();
+        AdminSQLiteOpenHelper dataBase_helper = new AdminSQLiteOpenHelper(this, "fastQuiz_bbdd", null, 1);
+        SQLiteDatabase dataBase = dataBase_helper.getWritableDatabase();
         Cursor cursor = dataBase.rawQuery("select * from ranking  order by score DESC",null);
 
-        ArrayList<Player> ranking = new ArrayList<Player>();
-        Player player = null;
+        ArrayList<Player> ranking = new ArrayList<>();
+        Player player;
 
         while(cursor.moveToNext()){
             player = new Player();

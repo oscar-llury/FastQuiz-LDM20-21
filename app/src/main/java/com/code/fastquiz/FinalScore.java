@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,8 +21,6 @@ import android.widget.Toast;
 public class FinalScore extends AppCompatActivity {
 
     private AdminSQLiteOpenHelper dataBase_helper;
-    private SQLiteDatabase dataBase;
-    private EditText playerName;
     private boolean registered;
     private int playerScore;
 
@@ -58,8 +55,8 @@ public class FinalScore extends AppCompatActivity {
 
     public void registerScore(View view){
         //abrir la base de datos modo escritura y lectura
-        dataBase = dataBase_helper.getWritableDatabase();
-        playerName = findViewById(R.id.playerName);
+        SQLiteDatabase dataBase = dataBase_helper.getWritableDatabase();
+        EditText playerName = findViewById(R.id.playerName);
         String nombre = playerName.getText().toString();
 
         if (!nombre.isEmpty() & !registered){

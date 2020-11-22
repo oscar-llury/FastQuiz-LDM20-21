@@ -105,7 +105,7 @@
                 android:textColor="?attr/primaryTextColor" />
 
             <!--android.support.v7.widget.SwitchCompat-->
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_images"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

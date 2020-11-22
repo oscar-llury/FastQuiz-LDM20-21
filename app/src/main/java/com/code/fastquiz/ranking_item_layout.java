@@ -11,13 +11,11 @@ import java.util.ArrayList;
 
 class ranking_item_layout extends BaseAdapter {
 
-    private Context context;
-    private ArrayList<Player> data;
+    private final ArrayList<Player> data;
     private static LayoutInflater inflater = null;
 
     public ranking_item_layout(Context context, ArrayList<Player> data) {
         // TODO Auto-generated constructor stub
-        this.context = context;
         this.data = data;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
