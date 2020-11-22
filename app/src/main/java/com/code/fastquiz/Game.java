@@ -4,26 +4,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Dialog;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
@@ -84,7 +82,7 @@ public class Game extends AppCompatActivity {
 
 
         if (!this.questions_with_images && playerMode == 2) {
-            this.total_questions = this.arrayQuestions.size();
+            this.arrayQuestions.size();
         }
         this.player = new Player();
         this.question = findViewById(R.id.question_text);
@@ -119,6 +117,7 @@ public class Game extends AppCompatActivity {
      *
      * @param v View
      */
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_answer1: {
@@ -263,11 +262,10 @@ public class Game extends AppCompatActivity {
      * Método que crea y muestra una ventana emergente al pulsar una respuesta
      *
      * @param correct boolean si la respuesta es correcta o no
-     * @return Dialog
      */
-    private Dialog showPopUp(boolean answered, boolean correct) {
+    private void showPopUp(boolean answered, boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        String popUpTitle = "", message = "";
+        String popUpTitle, message = "";
         if(!answered) {
             popUpTitle = getString(R.string.popTimeOut);
             message = getString(R.string.popTimeOut_message);
@@ -312,7 +310,7 @@ public class Game extends AppCompatActivity {
                     });
         }
 
-        return popUp.show();
+        popUp.show();
     }
 
     /**
@@ -347,7 +345,7 @@ public class Game extends AppCompatActivity {
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
-            json = new String(buffer, "UTF-8");
+            json = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;

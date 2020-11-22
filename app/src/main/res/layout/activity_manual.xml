@@ -14,7 +14,7 @@
         layout="@layout/app_bar" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewTitle_manual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -37,7 +37,7 @@
 
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textView1_manual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
@@ -47,7 +47,7 @@
 
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/textView2_manual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -57,9 +57,9 @@
 
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView_manual1"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:contentDescription="@string/ImageManual1"
@@ -67,7 +67,7 @@
 
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/textView3_manual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -76,7 +76,7 @@
                 android:textColor="?attr/primaryTextColor"/>
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageView_manual2"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
@@ -86,7 +86,7 @@
                 android:textColor="?attr/primaryTextColor"/>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView4_manual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -95,16 +95,16 @@
                 android:textColor="?attr/primaryTextColor"/>
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageView_manual3"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="270dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:contentDescription="@string/ImageManual2"
                 app:srcCompat="@drawable/manual3" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView5_manual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -112,7 +112,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="?attr/primaryTextColor"/>
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imageView_manual4"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginLeft="20dp"
@@ -120,6 +120,24 @@
                 android:contentDescription="@string/ImageManual2"
                 app:srcCompat="@drawable/manual4"
                 android:textColor="?attr/primaryTextColor"/>
+            <TextView
+            android:id="@+id/textView6_manual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/manual_6"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="?attr/primaryTextColor"/>
+
+            <ImageView
+                android:id="@+id/imageView_manual5"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:contentDescription="@string/ImageManual2"
+                android:textColor="?attr/primaryTextColor"
+                app:srcCompat="@drawable/manual5" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

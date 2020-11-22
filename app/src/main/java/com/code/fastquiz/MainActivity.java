@@ -20,6 +20,8 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 /**
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private  RadioGroup question_group;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch have_images;
+    private SwitchCompat have_images;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
