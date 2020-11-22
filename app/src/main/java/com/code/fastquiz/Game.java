@@ -1,9 +1,7 @@
 package com.code.fastquiz;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
@@ -11,10 +9,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -35,29 +31,30 @@ import java.util.Random;
  * @author Carlos González, Óscar Rivas
  */
 public class Game extends AppCompatActivity {
+
     private int total_questions, num_questions_count;
     private Button answer1, answer2, answer3, answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
-    private boolean checking, questions_with_images;
-    private TextView question;
+    private boolean checking, questions_with_images, minuteIsPlaying, isDarkMode;
+    private TextView question, countDownTextView, scoreView, questions_count;
     private Player player;
-    private TextView scoreView, questions_count;
     private ImageView imageView_question;
-    private TextView countDownTextView;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private static final long COUNTDOWN_IN_MILLIS = 15000;
-    private static MediaPlayer mp,mp1;
+    private static MediaPlayer mpAnswer,mpSecconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences prefs = getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
-        boolean isNightModeEnabled = prefs.getBoolean("NIGHT_MODE", false);
-        if (isNightModeEnabled) {
+        this.isDarkMode = prefs.getBoolean("NIGHT_MODE", false);
+        if (isDarkMode) {
             setTheme(R.style.darkTheme);
+            this.isDarkMode=true;
         } else {
             setTheme(R.style.FastQuizTheme);
+            this.isDarkMode=false;
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
@@ -65,21 +62,22 @@ public class Game extends AppCompatActivity {
         Intent mIntent = getIntent();
         int playerMode = mIntent.getIntExtra("mode", 0);
         int images = mIntent.getIntExtra("images", 0);
+
         Toolbar toolb = findViewById(R.id.app_bar);
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
-        Initializer ini = new Initializer();
+
+        QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
+        this.num_questions_count = 0;
+        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(),this.total_questions, this.questions_with_images);
 
         if (playerMode == 1) {
             this.total_questions = 5;
         } else if (playerMode == 2) {
-            this.total_questions = ini.init_size();
+            this.total_questions = this.arrayQuestions.size();
         }
         this.questions_with_images = images == 1;
 
-        QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
-                this.num_questions_count = 0;
-        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(),this.total_questions, this.questions_with_images);
         if (!this.questions_with_images && playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();
         }
@@ -93,58 +91,51 @@ public class Game extends AppCompatActivity {
         this.questions_count = findViewById(R.id.questions_count);
         this.imageView_question = findViewById(R.id.imageView_question);
         this.countDownTextView = findViewById(R.id.countDownText);
-        updateScore();
     }
     @Override
     public void onStart() {
         super.onStart();
+        Toast.makeText(this, "onstart", Toast.LENGTH_SHORT).show();
+        this.minuteIsPlaying=false;
+        if(this.isDarkMode)
+            this.countDownTextView.setTextColor(getResources().getColor(R.color.primaryTextColor_dark));
+        else
+            this.countDownTextView.setTextColor(getResources().getColor(R.color.primaryTextColor_light));
+        updateScore();
         playGame();
     }
+
     /**
      * Este método se ejecuta cuando el usuario pulsa una respuesta
      *
      * @param v View
      */
     public void onClick(View v) {
-        mp1.stop();
         switch (v.getId()) {
             case R.id.button_answer1: {
                 checking = question_to_show.checkCorrectAnswer(1);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
-                    answer1.setBackgroundColor(Color.GREEN);
-
+                    answer1.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
-                    answer1.setBackgroundColor(Color.RED);
+                    answer1.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
             case R.id.button_answer2: {
                 checking = question_to_show.checkCorrectAnswer(2);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
-                    answer2.setBackgroundColor(Color.GREEN);
+                    answer2.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
-                    answer2.setBackgroundColor(Color.RED);
+                    answer2.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
             case R.id.button_answer3: {
                 checking = question_to_show.checkCorrectAnswer(3);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
-                    answer3.setBackgroundColor(Color.GREEN);
+                    answer3.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
-                    answer3.setBackgroundColor(Color.RED);
+                    answer3.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
@@ -152,13 +143,9 @@ public class Game extends AppCompatActivity {
 
                 checking = question_to_show.checkCorrectAnswer(4);
                 if (checking) {
-                    mp = MediaPlayer.create(this, R.raw.sonido1);
-                    mp.start();
-                    answer4.setBackgroundColor(Color.GREEN);
+                    answer4.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    mp = MediaPlayer.create(this, R.raw.incorrecto);
-                    mp.start();
-                    answer4.setBackgroundColor(Color.RED);
+                    answer4.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
@@ -171,22 +158,15 @@ public class Game extends AppCompatActivity {
      *
      */
     private void playGame(){
-       /*TypedValue tp = new TypedValue();
-        Resources.Theme th = getApplicationContext().getTheme();
-        //th.resolveAttribute(R.attr.primaryTextColor,tp,true);
-        th.resolveAttribute(R.attr.primaryTextColor,tp,true);
-        @ColorInt int color = tp.data;
-        countDownTextView.setTextColor(color);*/
-        // val array = getApplicationContext().obtainStyledAttributes(attrs,R.styleable.Theme_primaryTextColor);
         imageView_question.setVisibility(View.GONE);
         if(this.arrayQuestions.size()>0) {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-            answer1.setBackgroundColor(Color.parseColor("#b75c4c"));
-            answer2.setBackgroundColor(Color.parseColor("#b75c4c"));
-            answer3.setBackgroundColor(Color.parseColor("#b75c4c"));
-            answer4.setBackgroundColor(Color.parseColor("#b75c4c"));
+            answer1.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
+            answer2.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
+            answer3.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
+            answer4.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
             question.setText(question_to_show.getQuestion());
 
             if(this.questions_with_images && this.question_to_show.isImage()) {
@@ -235,28 +215,41 @@ public class Game extends AppCompatActivity {
         this.num_questions_count ++;
         this.arrayQuestions.remove(question_to_show);
 
+        if (timeLeftInMillis < 10000) {
+            mpSecconds.stop();
+            mpSecconds.reset();
+        }
+
         if(checking){
+            mpAnswer = MediaPlayer.create(this, R.raw.correcto);
+            mpAnswer.start();
             this.player.increaseScore();
         }else{
+            mpAnswer = MediaPlayer.create(this, R.raw.incorrecto);
+            mpAnswer.start();
             this.player.decreaseScore();
-
         }
         updateScore();
         showPopUp(answered, checking);
     }
     private void updateCountDownText() {
-        int minutes = (int) (timeLeftInMillis / 1000) / 60;
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
 
-        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        String timeFormatted = String.format(Locale.getDefault(), "%02d", seconds);
         countDownTextView.setText(timeFormatted);
 
         if (timeLeftInMillis < 10000) {
-            mp1 = MediaPlayer.create(this,R.raw.minute);
-            mp1.start();
-            countDownTextView.setTextColor(Color.RED);
-            if (timeLeftInMillis == 0 && mp1.isPlaying()){
-                mp1.stop();
+            if(!this.minuteIsPlaying) {
+                this.minuteIsPlaying=true;
+                mpSecconds = MediaPlayer.create(this, R.raw.minute);
+                mpSecconds.start();
+                this.countDownTextView.setTextColor(getResources().getColor(R.color.answerIncorrect));
+            }
+            if (timeLeftInMillis == 0 && mpSecconds.isPlaying()){
+                mpSecconds.stop();
+                mpSecconds.reset();
+                mpAnswer = MediaPlayer.create(this, R.raw.incorrecto);
+                mpAnswer.start();
             }
         }
     }
@@ -266,12 +259,12 @@ public class Game extends AppCompatActivity {
      * @param correct boolean si la respuesta es correcta o no
      * @return Dialog
      */
-    public Dialog showPopUp(boolean answered, boolean correct) {
+    private Dialog showPopUp(boolean answered, boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         String popUpTitle = "", message = "";
         if(!answered) {
-            popUpTitle = "TIMEOUT";
-            message = "No has respondido a tiempo a la pregunta.\n";
+            popUpTitle = getString(R.string.popTimeOut);
+            message = getString(R.string.popTimeOut_message);
         }else{
             if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
                 if (correct) {
@@ -289,29 +282,29 @@ public class Game extends AppCompatActivity {
                 }
             }
         }
-            if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
-                popUp.setTitle(popUpTitle)
-                        .setMessage(message + "Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
-                        .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                playGame();
-                                dialog.cancel();
-                            }
-                        })
-                        .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                initScoreActivity();
-                            }
-                        });
-            } else {
-                popUp.setTitle(popUpTitle)
-                        .setMessage(message)
-                        .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                initScoreActivity();
-                            }
-                        });
-            }
+        if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
+            popUp.setTitle(popUpTitle)
+                    .setMessage(message + "Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
+                    .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            onStart();
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            initScoreActivity();
+                        }
+                    });
+        } else {
+            popUp.setTitle(popUpTitle)
+                    .setMessage(message)
+                    .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            initScoreActivity();
+                        }
+                    });
+        }
 
         return popUp.show();
     }
@@ -341,7 +334,7 @@ public class Game extends AppCompatActivity {
     }
 
     private String loadJSONFromAsset() {
-        String json = null;
+        String json;
         try {
             InputStream is = getApplicationContext().getAssets().open("questionRepository.json");
             int size = is.available();
