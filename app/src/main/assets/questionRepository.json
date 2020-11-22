@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "question": "¿Cuál es la capital de Mongolia?",
+    "image": false,
+    "answers": [
+      {
+        "answer": "Estambul",
+        "isCorrect": false
+      },
+      {
+        "answer": "Ulan Bator",
+        "isCorrect": true
+      },
+      {
+        "answer": "Madrid",
+        "isCorrect": false
+      },
+      {
+        "answer": "Tokio",
+        "isCorrect": false
+      }
+    ]
+  }
+]
