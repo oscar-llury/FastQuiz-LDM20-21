@@ -10,9 +10,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,7 +35,7 @@ import java.util.Random;
  */
 public class Game extends AppCompatActivity {
 
-    private int total_questions, num_questions_count;
+    private int total_questions, num_questions_count,correctSound,incorrectSound;
     private Button answer1, answer2, answer3, answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
@@ -43,7 +46,8 @@ public class Game extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private static final long COUNTDOWN_IN_MILLIS = 15000;
-    private static MediaPlayer mpAnswer,mpSecconds;
+    private static MediaPlayer mpSecconds;
+    private static SoundPool spAnswer_correct,spAnswer_incorrect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +95,15 @@ public class Game extends AppCompatActivity {
         this.questions_count = findViewById(R.id.questions_count);
         this.imageView_question = findViewById(R.id.imageView_question);
         this.countDownTextView = findViewById(R.id.countDownText);
+        spAnswer_correct = new SoundPool(1, AudioManager.STREAM_MUSIC,1);
+        correctSound = spAnswer_correct.load(this, R.raw.correcto,1);
+        spAnswer_incorrect = new SoundPool(1, AudioManager.STREAM_MUSIC,1);
+        incorrectSound = spAnswer_incorrect.load(this, R.raw.incorrecto,1);
+
     }
     @Override
     public void onStart() {
         super.onStart();
-        Toast.makeText(this, "onstart", Toast.LENGTH_SHORT).show();
         this.minuteIsPlaying=false;
         if(this.isDarkMode)
             this.countDownTextView.setTextColor(getResources().getColor(R.color.primaryTextColor_dark));
@@ -221,12 +229,10 @@ public class Game extends AppCompatActivity {
         }
 
         if(checking){
-            mpAnswer = MediaPlayer.create(this, R.raw.correcto);
-            mpAnswer.start();
+            spAnswer_correct.play(correctSound,1,1,1,0,0);
             this.player.increaseScore();
         }else{
-            mpAnswer = MediaPlayer.create(this, R.raw.incorrecto);
-            mpAnswer.start();
+            spAnswer_incorrect.play(incorrectSound,1,1,1,0,0);
             this.player.decreaseScore();
         }
         updateScore();
@@ -248,8 +254,7 @@ public class Game extends AppCompatActivity {
             if (timeLeftInMillis == 0 && mpSecconds.isPlaying()){
                 mpSecconds.stop();
                 mpSecconds.reset();
-                mpAnswer = MediaPlayer.create(this, R.raw.incorrecto);
-                mpAnswer.start();
+                spAnswer_incorrect.play(incorrectSound,1,1,1,0,0);
             }
         }
     }
