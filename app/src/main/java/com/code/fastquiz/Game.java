@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
@@ -68,6 +70,11 @@ public class Game extends AppCompatActivity {
             this.total_questions = ini.init_size();
         }
         this.questions_with_images = images == 1;
+
+
+        QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
+        qrh.readQuestionRepository(loadJSONFromAsset());
+
 
         this.num_questions_count = 0;
         this.arrayQuestions = ini.getQuestion(this.total_questions, this.questions_with_images);
@@ -299,5 +306,21 @@ public class Game extends AppCompatActivity {
             this.scoreView.setText("0");
         }
         this.questions_count.setText(this.num_questions_count+"/"+this.total_questions);
+    }
+
+    private String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getApplicationContext().getAssets().open("questionRepository.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }

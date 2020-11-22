@@ -8,54 +8,60 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
 public class QuestionRepositoryHelper extends AppCompatActivity {
     private ArrayList<Question> list_questions;
 
-    public QuestionRepositoryHelper(){
-        /*try {
-            InputStreamReader archivo = new InputStreamReader(openFileInput("hola.txt"));
-            BufferedReader fin = new BufferedReader(archivo);
-            String texto = fin.readLine() + "\n";
-            String textocomp = "";
+    public ArrayList<Question> readQuestionRepository(String string){
 
-            while(texto != null){
-                textocomp = textocomp + texto + "\n";
-                texto = fin.readLine();
-            }
-            fin.close();
-            archivo.close();
-            textView8.setText(textocomp);
-        } catch (
-                IOException e) {
-            Log.e("Ficheros", "Error al leer fichero desde memoria interna");
-        }
-
-         */
         try {
-            OutputStreamWriter fout =
-                    new OutputStreamWriter(
-                            openFileOutput("questions.txt", Context.MODE_PRIVATE));
-            fout.write("¿Cuál es la capital de Mongolia?" + "\n");
-            fout.write("Estambul" + "\n");
-            fout.write("Ulan Bator" + "\n");
-            fout.write("Madrid" + "\n");
-            fout.write("Tokio" + "\n");
-            fout.flush();
-            fout.close();
-            Toast.makeText(this,"Archivo escrito",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Log.e("Ficheros", "Error al escribir fichero en mem.int");
-            Toast.makeText(this,"Error en el archivo",Toast.LENGTH_SHORT).show();
+            JSONArray jsonArray = new JSONArray(string);
+
+            ArrayList<Question> list_questions = new ArrayList<>();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonQuestion = jsonArray.getJSONObject(i);
+                
+                String s_question = jsonQuestion.getString("question");
+                boolean image = jsonQuestion.getBoolean("image");
+
+                Question question;
+                if(image){
+                    String path = jsonQuestion.getString("path");
+                    question = new Question(s_question,image,path);
+                }else{
+                    question = new Question(s_question);
+                }
+
+                JSONArray answersArray = jsonQuestion.getJSONArray("answers");
+                for (int n = 0; n < answersArray.length(); n++) {
+                    JSONObject jsonAnswer = answersArray.getJSONObject(n);
+                    String answer = jsonAnswer.getString("answer");
+                    boolean isCorrect = jsonAnswer.getBoolean("isCorrect");
+
+                    question.addAnswer(answer, isCorrect);
+                }
+                list_questions.add(question);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        return null;
     }
 
     public ArrayList<Question> getQuestion(int numquest, boolean withImages) {
