@@ -1,7 +1,9 @@
 package com.code.fastquiz;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
@@ -9,7 +11,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -42,7 +47,8 @@ public class Game extends AppCompatActivity {
     private TextView countDownTextView;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
-    private static final long COUNTDOWN_IN_MILLIS = 30000;
+    private static final long COUNTDOWN_IN_MILLIS = 15000;
+    private static MediaPlayer mp,mp1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,13 +106,18 @@ public class Game extends AppCompatActivity {
      * @param v View
      */
     public void onClick(View v) {
+        mp1.stop();
         switch (v.getId()) {
             case R.id.button_answer1: {
                 checking = question_to_show.checkCorrectAnswer(1);
                 if (checking) {
+                    mp = MediaPlayer.create(this, R.raw.sonido1);
+                    mp.start();
                     answer1.setBackgroundColor(Color.GREEN);
 
                 } else {
+                    mp = MediaPlayer.create(this, R.raw.incorrecto);
+                    mp.start();
                     answer1.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -114,8 +125,12 @@ public class Game extends AppCompatActivity {
             case R.id.button_answer2: {
                 checking = question_to_show.checkCorrectAnswer(2);
                 if (checking) {
+                    mp = MediaPlayer.create(this, R.raw.sonido1);
+                    mp.start();
                     answer2.setBackgroundColor(Color.GREEN);
                 } else {
+                    mp = MediaPlayer.create(this, R.raw.incorrecto);
+                    mp.start();
                     answer2.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -123,17 +138,26 @@ public class Game extends AppCompatActivity {
             case R.id.button_answer3: {
                 checking = question_to_show.checkCorrectAnswer(3);
                 if (checking) {
+                    mp = MediaPlayer.create(this, R.raw.sonido1);
+                    mp.start();
                     answer3.setBackgroundColor(Color.GREEN);
                 } else {
+                    mp = MediaPlayer.create(this, R.raw.incorrecto);
+                    mp.start();
                     answer3.setBackgroundColor(Color.RED);
                 }
                 break;
             }
             case R.id.button_answer4: {
+
                 checking = question_to_show.checkCorrectAnswer(4);
                 if (checking) {
+                    mp = MediaPlayer.create(this, R.raw.sonido1);
+                    mp.start();
                     answer4.setBackgroundColor(Color.GREEN);
                 } else {
+                    mp = MediaPlayer.create(this, R.raw.incorrecto);
+                    mp.start();
                     answer4.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -147,6 +171,13 @@ public class Game extends AppCompatActivity {
      *
      */
     private void playGame(){
+       /*TypedValue tp = new TypedValue();
+        Resources.Theme th = getApplicationContext().getTheme();
+        //th.resolveAttribute(R.attr.primaryTextColor,tp,true);
+        th.resolveAttribute(R.attr.primaryTextColor,tp,true);
+        @ColorInt int color = tp.data;
+        countDownTextView.setTextColor(color);*/
+        // val array = getApplicationContext().obtainStyledAttributes(attrs,R.styleable.Theme_primaryTextColor);
         imageView_question.setVisibility(View.GONE);
         if(this.arrayQuestions.size()>0) {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
@@ -221,7 +252,12 @@ public class Game extends AppCompatActivity {
         countDownTextView.setText(timeFormatted);
 
         if (timeLeftInMillis < 10000) {
+            mp1 = MediaPlayer.create(this,R.raw.minute);
+            mp1.start();
             countDownTextView.setTextColor(Color.RED);
+            if (timeLeftInMillis == 0 && mp1.isPlaying()){
+                mp1.stop();
+            }
         }
     }
     /**
