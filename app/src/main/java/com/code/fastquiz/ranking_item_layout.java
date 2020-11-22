@@ -53,7 +53,7 @@ class ranking_item_layout extends BaseAdapter {
         TextView text2 = (TextView) vi.findViewById(R.id.text2);
         text2.setText(data.get(position).getName());
         TextView text3 = (TextView) vi.findViewById(R.id.text3);
-        text3.setText(Integer.toString(data.get(position).getScore())+" pts");//
+        text3.setText(Integer.toString(data.get(position).getScore())+" pts");
         return vi;
     }
 }

@@ -48,11 +48,7 @@ public class Ranking extends AppCompatActivity {
             ranking.add(player);
         }
         dataBase.close();
-/*
-        //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listPlayers);
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.ranking_item_layout, listPlayers);
-        rankingListView.setAdapter(adapter);
-*/
+
         rankingListView.setAdapter(new ranking_item_layout(this, ranking));
     }
 

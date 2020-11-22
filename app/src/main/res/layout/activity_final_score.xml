@@ -101,10 +101,11 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:fontFamily="@font/roboto_regular"
-                android:textColor="?attr/primaryTextColor"
                 android:hint="@string/inputPlayerName"
                 android:inputType="textPersonName"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="?attr/primaryTextColor"
+                android:textColorHint="?attr/primaryTextColor" />
 
             <Button
                 android:id="@+id/button_start_game3"
