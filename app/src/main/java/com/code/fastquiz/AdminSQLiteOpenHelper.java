@@ -14,11 +14,8 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase fastQuiz_bbdd) {
-        //crear la base de datos
-        //baseDatos.getPath();
 
         fastQuiz_bbdd.execSQL("create table ranking(name varchar(50) primary key, score int)");
-        //fastQuiz_bbdd.execSQL("create table questions(id primary key, question text, score int)");
     }
 
     @Override
