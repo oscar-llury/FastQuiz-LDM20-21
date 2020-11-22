@@ -47,12 +47,12 @@ public class FinalScore extends AppCompatActivity {
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
         Intent mIntent = getIntent();
-        int playerScore = mIntent.getIntExtra("score", 0);
+        this.playerScore = mIntent.getIntExtra("score", 0);
         if(playerScore<=0){
             score.setText("0");
-            playerScore = 0;
+            this.playerScore = 0;
         }else{
-            score.setText(Integer.toString(playerScore));
+            score.setText(Integer.toString(this.playerScore));
         }
     }
 
@@ -67,7 +67,7 @@ public class FinalScore extends AppCompatActivity {
             ContentValues registro = new ContentValues();
             //Añade los pares
             registro.put("name", nombre);
-            registro.put("score", playerScore);
+            registro.put("score", this.playerScore);
 
             dataBase.insert("ranking", null, registro);
             dataBase.close();

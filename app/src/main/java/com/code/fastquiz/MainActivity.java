@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolb =findViewById(R.id.app_bar);
         setSupportActionBar(toolb);
         toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
-        TextView textView8 = findViewById(R.id.textViewprueba);
-        textView8.setText("prueba");
 
         startButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
