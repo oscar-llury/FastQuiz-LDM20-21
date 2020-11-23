@@ -41,11 +41,10 @@
     <string name="this_ranking">Ranking FastQuiz</string>
 
     <!-- activity_config -->
-    <string name="Boton1">Según la configuración del sistema</string>
-    <string name="Boton2">Modo Claro</string>
-    <string name="Boton3">Modo Nocturno</string>
-    <string name="Boton4">Aplicar</string>
-    <string name="Atras">Go back</string>
+    <string name="config_tittle">Apariencia de la aplicación:</string>
+    <string name="config_light">Modo Claro</string>
+    <string name="config_dark">Modo Nocturno</string>
+    <string name="config_apply">Aplicar</string>
 
     <!-- activity menu -->
     <string name="menu_item1">Manual de la App</string>
