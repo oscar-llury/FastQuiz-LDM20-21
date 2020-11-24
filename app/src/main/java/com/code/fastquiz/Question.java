@@ -10,6 +10,7 @@ import java.util.Random;
  * @author Carlos González, Óscar Rivas
  */
 public class Question {
+
     private Integer correctPos; //Posición correcta en los botones
     private String question;
     private boolean image;

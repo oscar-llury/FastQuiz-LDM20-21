@@ -1,7 +1,7 @@
 package com.code.fastquiz;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;

@@ -8,9 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 
@@ -28,7 +27,9 @@ public class Ranking extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
         ListView rankingListView = findViewById(R.id.rankingListView);
-
+        Toolbar toolb =findViewById(R.id.app_bar);
+        setSupportActionBar(toolb);
+        toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
         AdminSQLiteOpenHelper dataBase_helper = new AdminSQLiteOpenHelper(this, "fastQuiz_bbdd", null, 1);
         SQLiteDatabase dataBase = dataBase_helper.getWritableDatabase();
         Cursor cursor = dataBase.rawQuery("select * from ranking  order by score DESC",null);

@@ -49,7 +49,7 @@
     <!-- activity menu -->
     <string name="menu_item1">Manual de la App</string>
     <string name="menu_item2">Configuración</string>
-
+    <string name="Atras">Atrás</string>
     <!-- Activity Manual -->
     <string name="user_manual">Manual de usuario</string>
     <string name="manual_1">Bienvenido a Fast Quiz!

@@ -3,7 +3,6 @@ package com.code.fastquiz;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -196,6 +194,11 @@ public class Game extends AppCompatActivity {
             initScoreActivity();
         }
     }
+
+    /**
+     * Método que inicializa la cuenta atrás de las preguntas
+     *
+     */
     private void StartCountDown(){
         this.countDownTimer = new CountDownTimer(timeLeftInMillis,1000) {
             @Override
@@ -213,6 +216,12 @@ public class Game extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Método que se ejecuta cuando el jugador pulsa un botón de respuesta.
+     * Actualiza la información del score, para el timer y reproduce el sonido de respuesta
+     * correcta o incorrecta.
+     *
+     */
     private void checkingAnswer(boolean answered, boolean checking){
         countDownTimer.cancel();
         answer1.setEnabled(false);
@@ -238,6 +247,12 @@ public class Game extends AppCompatActivity {
         updateScore();
         showPopUp(answered, checking);
     }
+
+    /**
+     * Método que inicia el sonido de la cuenta atrás cuando se alcanzan 10 segundos restantes
+     * Actualiza la información del texto del contador.
+     *
+     */
     private void updateCountDownText() {
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
 
@@ -258,6 +273,7 @@ public class Game extends AppCompatActivity {
             }
         }
     }
+
     /**
      * Método que crea y muestra una ventana emergente al pulsar una respuesta
      *
@@ -322,6 +338,7 @@ public class Game extends AppCompatActivity {
         activity.putExtra("score", this.player.getScore());
         startActivity(activity);
     }
+
     /**
      * Este método actualiza el score
      *
@@ -337,6 +354,10 @@ public class Game extends AppCompatActivity {
         this.questions_count.setText(this.num_questions_count+"/"+this.total_questions);
     }
 
+    /**
+     * Este método lee el archivo JSON
+     *
+     */
     private String loadJSONFromAsset() {
         String json;
         try {
