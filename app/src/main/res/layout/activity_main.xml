@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="?attr/backgroundColor">
+
+    <include
+        layout = "@layout/app_bar"
+        android:id="@+id/app_bar">
+    </include>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -16,23 +23,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button_start_game"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_start"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/star_game"
-            android:textColor="@color/textColor"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -40,7 +30,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="@string/star_text"
             android:textAlignment="center"
-            android:textColor="@color/textColor"
+            android:textColor="?attr/primaryTextColor"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +44,7 @@
             android:layout_marginBottom="32dp"
             android:fontFamily="@font/roboto_light"
             android:text="@string/star_text2"
-            android:textColor="@color/textColor"
+            android:textColor="?attr/primaryTextColor"
             app:layout_constraintBottom_toTopOf="@+id/radioGroup_question"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/star_questions_text"
-                android:textColor="@color/textColor" />
+                android:textColor="?attr/primaryTextColor" />
 
             <RadioButton
                 android:id="@+id/radioButton_5"
@@ -84,7 +74,8 @@
                 android:checked="true"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/mode_5"
-                android:textColor="@color/textColor" />
+                android:textColor="?attr/primaryTextColor"
+                android:buttonTint="?attr/colorAccent" />
 
             <RadioButton
                 android:id="@+id/radioButton_all"
@@ -92,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/mode_complete"
-                android:textColor="@color/textColor" />
+                android:textColor="?attr/primaryTextColor"
+                android:buttonTint="?attr/colorAccent" />
         </RadioGroup>
 
         <RadioGroup
@@ -100,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_start_game"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -110,18 +102,60 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/star_image_text"
-                android:textColor="@color/textColor" />
+                android:textColor="?attr/primaryTextColor" />
 
-                <!--android.support.v7.widget.SwitchCompat-->
-            <Switch
+            <!--android.support.v7.widget.SwitchCompat-->
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_images"
-                android:fontFamily="@font/roboto_regular"
-                android:textColor="@color/textColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/with_image" />
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/with_image"
+                android:textColor="?attr/primaryTextColor"
+                android:buttonTint="?attr/colorAccent" />
 
         </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/button_start_game5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_start"
+                android:fontFamily="@font/roboto_medium"
+                android:onClick="initRankingActivity"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/viewRanking"
+                android:textColor="?attr/primaryTextColor"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/button_start_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_start"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/star_game"
+                android:textColor="?attr/primaryTextColor"
+                android:textSize="18sp" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

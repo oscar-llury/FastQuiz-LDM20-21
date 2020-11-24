@@ -10,6 +10,7 @@ import java.util.Random;
  * @author Carlos González, Óscar Rivas
  */
 public class Question {
+
     private Integer correctPos; //Posición correcta en los botones
     private String question;
     private boolean image;
@@ -25,7 +26,7 @@ public class Question {
         this.correctPos = null;
         this.question = question;
         this.image = false;
-        this.answers = new ArrayList<String>();
+        this.answers = new ArrayList<>();
     }
 
     public Question(String question, boolean image, String path) {
@@ -34,7 +35,7 @@ public class Question {
         this.question = question;
         this.image = image;
         this.path = path;
-        this.answers = new ArrayList<String>();
+        this.answers = new ArrayList<>();
     }
 
     public String getQuestion() {
@@ -68,14 +69,14 @@ public class Question {
      */
     public String getAnswer(){
         if(this.contShownAnswers == 0){
-            Random rnd = new Random(System.currentTimeMillis() * 13000);;
+            Random rnd = new Random(System.currentTimeMillis() * 13000);
             this.correctPos = (int) (rnd.nextDouble()*4)+1;
         }
         this.contShownAnswers = this.contShownAnswers+1;
         if(this.contShownAnswers==this.correctPos) {
             return this.answers.get(0);
         }else{
-            Random rnd2 = new Random(System.currentTimeMillis() * 7000);;
+            Random rnd2 = new Random(System.currentTimeMillis() * 7000);
             int posarray = (int) (rnd2.nextDouble()*this.answers.size()-1)+1;
             String a = this.answers.get(posarray);
             this.answers.remove(posarray);

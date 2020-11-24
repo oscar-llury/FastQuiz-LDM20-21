@@ -2,16 +2,26 @@ package com.code.fastquiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.Dialog;
+import androidx.appcompat.widget.Toolbar;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -20,18 +30,32 @@ import java.util.Random;
  * @author Carlos González, Óscar Rivas
  */
 public class Game extends AppCompatActivity {
-    private int total_questions, num_questions_count;
-    private Button answer1,answer2,answer3,answer4;
+
+    private int total_questions, num_questions_count,correctSound,incorrectSound;
+    private Button answer1, answer2, answer3, answer4;
     private Question question_to_show;
     private ArrayList<Question> arrayQuestions;
-    private boolean checking, questions_with_images;
-    private TextView question;
+    private boolean checking, questions_with_images, minuteIsPlaying, isDarkMode;
+    private TextView question, countDownTextView, scoreView, questions_count;
     private Player player;
-    private TextView scoreView, questions_count;
     private ImageView imageView_question;
+    private CountDownTimer countDownTimer;
+    private long timeLeftInMillis;
+    private static final long COUNTDOWN_IN_MILLIS = 15000;
+    private static MediaPlayer mpSecconds;
+    private static SoundPool spAnswer_correct,spAnswer_incorrect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("FASTQUIZ_CONFIG", Context.MODE_PRIVATE);
+        this.isDarkMode = prefs.getBoolean("NIGHT_MODE", false);
+        if (isDarkMode) {
+            setTheme(R.style.darkTheme);
+            this.isDarkMode=true;
+        } else {
+            setTheme(R.style.FastQuizTheme);
+            this.isDarkMode=false;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
@@ -39,19 +63,24 @@ public class Game extends AppCompatActivity {
         int playerMode = mIntent.getIntExtra("mode", 0);
         int images = mIntent.getIntExtra("images", 0);
 
-        Initializer ini = new Initializer();
+        Toolbar toolb = findViewById(R.id.app_bar);
+        setSupportActionBar(toolb);
+        toolb.setNavigationIcon(R.mipmap.ic_fastquiz);
 
-        if(playerMode==1){
-            this.total_questions = 5;
-        }else if(playerMode==2){
-            this.total_questions = ini.init_size();
-        }
-        this.questions_with_images = images==1;
-
+        this.questions_with_images = images == 1;
+        QuestionRepositoryHelper qrh = new QuestionRepositoryHelper();
         this.num_questions_count = 0;
-        this.arrayQuestions = ini.getQuestion(this.total_questions, this.questions_with_images);
-        if(!this.questions_with_images && playerMode==2){
+        this.arrayQuestions = qrh.readQuestionRepository(loadJSONFromAsset(), this.questions_with_images);
+
+        if (playerMode == 1) {
+            this.total_questions = 5;
+        } else if (playerMode == 2) {
             this.total_questions = this.arrayQuestions.size();
+        }
+
+
+        if (!this.questions_with_images && playerMode == 2) {
+            this.arrayQuestions.size();
         }
         this.player = new Player();
         this.question = findViewById(R.id.question_text);
@@ -62,74 +91,72 @@ public class Game extends AppCompatActivity {
         this.scoreView = findViewById(R.id.score);
         this.questions_count = findViewById(R.id.questions_count);
         this.imageView_question = findViewById(R.id.imageView_question);
-        updateScore();
+        this.countDownTextView = findViewById(R.id.countDownText);
+        spAnswer_correct = new SoundPool(1, AudioManager.STREAM_MUSIC,1);
+        correctSound = spAnswer_correct.load(this, R.raw.correcto,1);
+        spAnswer_incorrect = new SoundPool(1, AudioManager.STREAM_MUSIC,1);
+        incorrectSound = spAnswer_incorrect.load(this, R.raw.incorrecto,1);
+
     }
     @Override
     public void onStart() {
         super.onStart();
+        this.minuteIsPlaying=false;
+        if(this.isDarkMode)
+            this.countDownTextView.setTextColor(getResources().getColor(R.color.primaryTextColor_dark));
+        else
+            this.countDownTextView.setTextColor(getResources().getColor(R.color.primaryTextColor_light));
+        updateScore();
         playGame();
     }
+
     /**
      * Este método se ejecuta cuando el usuario pulsa una respuesta
      *
      * @param v View
      */
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_answer1: {
                 checking = question_to_show.checkCorrectAnswer(1);
                 if (checking) {
-                    answer1.setBackgroundColor(Color.GREEN);
-
+                    answer1.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    answer1.setBackgroundColor(Color.RED);
+                    answer1.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
             case R.id.button_answer2: {
                 checking = question_to_show.checkCorrectAnswer(2);
                 if (checking) {
-                    answer2.setBackgroundColor(Color.GREEN);
+                    answer2.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    answer2.setBackgroundColor(Color.RED);
+                    answer2.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
             case R.id.button_answer3: {
                 checking = question_to_show.checkCorrectAnswer(3);
                 if (checking) {
-                    answer3.setBackgroundColor(Color.GREEN);
+                    answer3.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    answer3.setBackgroundColor(Color.RED);
+                    answer3.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
             case R.id.button_answer4: {
+
                 checking = question_to_show.checkCorrectAnswer(4);
                 if (checking) {
-                    answer4.setBackgroundColor(Color.GREEN);
+                    answer4.setBackgroundColor(getResources().getColor(R.color.answerCorrect));
                 } else {
-                    answer4.setBackgroundColor(Color.RED);
+                    answer4.setBackgroundColor(getResources().getColor(R.color.answerIncorrect));
                 }
                 break;
             }
         }
-        answer1.setEnabled(false);
-        answer2.setEnabled(false);
-        answer3.setEnabled(false);
-        answer4.setEnabled(false);
-
-        this.num_questions_count ++;
-        this.arrayQuestions.remove(question_to_show);
-
-        if(checking){
-            this.player.increaseScore();
-        }else{
-            this.player.decreaseScore();
-
-        }
-        updateScore();
-        showPopUp(checking);
+        checkingAnswer(true,checking);
     }
 
     /**
@@ -142,10 +169,10 @@ public class Game extends AppCompatActivity {
             Random rnd = new Random(System.currentTimeMillis() * 1000);
             question_to_show = arrayQuestions.get((int) (rnd.nextDouble() * arrayQuestions.size()));
 
-            answer1.setBackgroundColor(R.drawable.button_answer);
-            answer2.setBackgroundColor(R.drawable.button_answer);
-            answer3.setBackgroundColor(R.drawable.button_answer);
-            answer4.setBackgroundColor(R.drawable.button_answer);
+            answer1.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
+            answer2.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
+            answer3.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
+            answer4.setBackgroundColor(getResources().getColor(R.color.primaryDarkColor));
             question.setText(question_to_show.getQuestion());
 
             if(this.questions_with_images && this.question_to_show.isImage()) {
@@ -157,7 +184,8 @@ public class Game extends AppCompatActivity {
             answer2.setText(question_to_show.getAnswer());
             answer3.setText(question_to_show.getAnswer());
             answer4.setText(question_to_show.getAnswer());
-
+            timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+            StartCountDown();
             answer1.setEnabled(true);
             answer2.setEnabled(true);
             answer3.setEnabled(true);
@@ -166,26 +194,120 @@ public class Game extends AppCompatActivity {
             initScoreActivity();
         }
     }
+
+    /**
+     * Método que inicializa la cuenta atrás de las preguntas
+     *
+     */
+    private void StartCountDown(){
+        this.countDownTimer = new CountDownTimer(timeLeftInMillis,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+            timeLeftInMillis = 0;
+            updateCountDownText();
+            checkingAnswer(false,false);
+            }
+        }.start();
+    }
+
+    /**
+     * Método que se ejecuta cuando el jugador pulsa un botón de respuesta.
+     * Actualiza la información del score, para el timer y reproduce el sonido de respuesta
+     * correcta o incorrecta.
+     *
+     */
+    private void checkingAnswer(boolean answered, boolean checking){
+        countDownTimer.cancel();
+        answer1.setEnabled(false);
+        answer2.setEnabled(false);
+        answer3.setEnabled(false);
+        answer4.setEnabled(false);
+
+        this.num_questions_count ++;
+        this.arrayQuestions.remove(question_to_show);
+
+        if (timeLeftInMillis < 10000) {
+            mpSecconds.stop();
+            mpSecconds.reset();
+        }
+
+        if(checking){
+            spAnswer_correct.play(correctSound,1,1,1,0,0);
+            this.player.increaseScore();
+        }else{
+            spAnswer_incorrect.play(incorrectSound,1,1,1,0,0);
+            this.player.decreaseScore();
+        }
+        updateScore();
+        showPopUp(answered, checking);
+    }
+
+    /**
+     * Método que inicia el sonido de la cuenta atrás cuando se alcanzan 10 segundos restantes
+     * Actualiza la información del texto del contador.
+     *
+     */
+    private void updateCountDownText() {
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+
+        String timeFormatted = String.format(Locale.getDefault(), "%02d", seconds);
+        countDownTextView.setText(timeFormatted);
+
+        if (timeLeftInMillis < 10000) {
+            if(!this.minuteIsPlaying) {
+                this.minuteIsPlaying=true;
+                mpSecconds = MediaPlayer.create(this, R.raw.minute);
+                mpSecconds.start();
+                this.countDownTextView.setTextColor(getResources().getColor(R.color.answerIncorrect));
+            }
+            if (timeLeftInMillis == 0 && mpSecconds.isPlaying()){
+                mpSecconds.stop();
+                mpSecconds.reset();
+                spAnswer_incorrect.play(incorrectSound,1,1,1,0,0);
+            }
+        }
+    }
+
     /**
      * Método que crea y muestra una ventana emergente al pulsar una respuesta
      *
      * @param correct boolean si la respuesta es correcta o no
-     * @return Dialog
      */
-    public Dialog showPopUp(boolean correct) {
+    private void showPopUp(boolean answered, boolean correct) {
         androidx.appcompat.app.AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        String popUpTitle;
-        if(this.player.getScore()>0 && this.num_questions_count<this.total_questions) {
-            if (correct) {
-                popUpTitle = getString(R.string.popUpCorrect);
-            } else {
-                popUpTitle = getString(R.string.popUpIncorrect);
+        String popUpTitle, message = "";
+        if(!answered) {
+            popUpTitle = getString(R.string.popTimeOut);
+            message = getString(R.string.popTimeOut_message);
+        }else{
+            if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
+                if (correct) {
+                    popUpTitle = getString(R.string.popUpCorrect);
+                } else {
+                    popUpTitle = getString(R.string.popUpIncorrect);
+                }
+            }else{
+                if (this.player.getScore() > 0 && this.num_questions_count >= this.total_questions) {
+                    popUpTitle = getString(R.string.finalTittle);
+                    message = getString(R.string.popFinish);
+                }else{
+                    popUpTitle = getString(R.string.popUpOver);
+                    message = getString(R.string.popOverr);
+                }
             }
+        }
+        if (this.player.getScore() > 0 && this.num_questions_count < this.total_questions) {
             popUp.setTitle(popUpTitle)
-                    .setMessage("Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
+                    .setMessage(message + "Tienes " + this.player.getScore() + " puntos. \n" + getString(R.string.answer_text))
                     .setPositiveButton(R.string.wrong_answer_continue, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            playGame();
+                            onStart();
                             dialog.cancel();
                         }
                     })
@@ -194,24 +316,17 @@ public class Game extends AppCompatActivity {
                             initScoreActivity();
                         }
                     });
-        }else{
-            String tittle,text;
-            if(this.player.getScore()>0 && this.num_questions_count>=this.total_questions){
-                tittle = getString(R.string.finalTittle);
-                text = getString(R.string.popFinish);
-            }else{
-                tittle = getString(R.string.popUpOver);
-                text = getString(R.string.popOverr);
-            }
-            popUp.setTitle(tittle)
-                .setMessage(text)
-                .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        initScoreActivity();
-                    }
-                });
+        } else {
+            popUp.setTitle(popUpTitle)
+                    .setMessage(message)
+                    .setNegativeButton(R.string.wrong_answer_exit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            initScoreActivity();
+                        }
+                    });
         }
-        return popUp.show();
+
+        popUp.show();
     }
 
     /**
@@ -223,6 +338,7 @@ public class Game extends AppCompatActivity {
         activity.putExtra("score", this.player.getScore());
         startActivity(activity);
     }
+
     /**
      * Este método actualiza el score
      *
@@ -236,5 +352,25 @@ public class Game extends AppCompatActivity {
             this.scoreView.setText("0");
         }
         this.questions_count.setText(this.num_questions_count+"/"+this.total_questions);
+    }
+
+    /**
+     * Este método lee el archivo JSON
+     *
+     */
+    private String loadJSONFromAsset() {
+        String json;
+        try {
+            InputStream is = getApplicationContext().getAssets().open("questionRepository.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }

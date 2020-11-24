@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Game">
+    tools:context=".Game"
+    android:background="?attr/backgroundColor">
+    <include
+        layout = "@layout/app_bar"
+        android:id="@+id/app_bar">
+    </include>
 
     <TextView
         android:id="@+id/textView"
@@ -16,13 +21,13 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="start"
         android:text="@string/score"
-        android:textColor="@color/textColor"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
 
     <TextView
@@ -34,14 +39,14 @@
         android:layout_weight="0.05"
         android:fontFamily="@font/roboto_medium"
         android:gravity="start"
-        android:textColor="@color/textColor"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
     <TextView
         android:id="@+id/textView5"
@@ -52,12 +57,12 @@
         android:fontFamily="@font/roboto_light"
         android:gravity="end"
         android:text="@string/question_count"
-        android:textColor="@color/textColor"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
     <TextView
         android:id="@+id/questions_count"
@@ -67,12 +72,12 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_light"
         android:gravity="end"
-        android:textColor="@color/textColor"
+        android:textColor="?attr/primaryTextColor"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -90,7 +95,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
             android:textAlignment="center"
-            android:textColor="@color/textColor"
+            android:textColor="?attr/primaryTextColor"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -132,9 +137,9 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/button_answer"
                 android:enabled="false"
                 android:fontFamily="@font/roboto_italic"
+                android:textColor="?attr/primaryTextColor"
                 android:hapticFeedbackEnabled="true"
                 android:onClick="onClick"
                 android:paddingLeft="10dp"
@@ -152,9 +157,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/button_answer"
                 android:enabled="false"
                 android:fontFamily="@font/roboto_italic"
+                android:textColor="?attr/primaryTextColor"
                 android:onClick="onClick"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
@@ -172,9 +177,9 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/button_answer"
                 android:enabled="false"
                 android:fontFamily="@font/roboto_italic"
+                android:textColor="?attr/primaryTextColor"
                 android:onClick="onClick"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
@@ -192,9 +197,9 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/button_answer"
                 android:enabled="false"
                 android:fontFamily="@font/roboto_italic"
+                android:textColor="?attr/primaryTextColor"
                 android:onClick="onClick"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
@@ -208,5 +213,14 @@
                 app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/countDownText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

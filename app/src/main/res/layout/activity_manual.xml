@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="8dp"
+    tools:layout_editor_absoluteY="8dp"
+    android:background="?attr/backgroundColor">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <TextView
+        android:id="@+id/textViewTitle_manual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/user_manual"
+        android:textAlignment="center"
+        android:textColor="?attr/primaryTextColor"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto_bold"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/textView1_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:padding="10dp"
+                android:text="@string/manual_1"
+                android:textColor="?attr/primaryTextColor"/>
+
+
+            <TextView
+                android:id="@+id/textView2_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/manual_2"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
+
+
+            <ImageView
+                android:id="@+id/imageView_manual1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="@string/ImageManual1"
+                app:srcCompat="@drawable/manual1" />
+
+
+            <TextView
+                android:id="@+id/textView3_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/manual_3"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
+
+            <ImageView
+                android:id="@+id/imageView_manual2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:contentDescription="@string/ImageManual2"
+                app:srcCompat="@drawable/manual2"
+                android:textColor="?attr/primaryTextColor"/>
+
+            <TextView
+                android:id="@+id/textView4_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/manual_4"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
+
+            <ImageView
+                android:id="@+id/imageView_manual3"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:contentDescription="@string/ImageManual2"
+                app:srcCompat="@drawable/manual3" />
+
+            <TextView
+                android:id="@+id/textView5_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/manual_5"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="?attr/primaryTextColor"/>
+            <ImageView
+                android:id="@+id/imageView_manual4"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:contentDescription="@string/ImageManual2"
+                app:srcCompat="@drawable/manual4"
+                android:textColor="?attr/primaryTextColor"/>
+            <TextView
+            android:id="@+id/textView6_manual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/manual_6"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="?attr/primaryTextColor"/>
+
+            <ImageView
+                android:id="@+id/imageView_manual5"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:contentDescription="@string/ImageManual2"
+                android:textColor="?attr/primaryTextColor"
+                app:srcCompat="@drawable/manual5" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

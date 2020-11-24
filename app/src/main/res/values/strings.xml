@@ -25,11 +25,54 @@
     <string name="popUpOver">Game Over!</string>
     <string name="popOverr">No tienes puntos para poder seguir jugando</string>
     <string name="popFinish">Enhorabuena, has llegado al fin de la partida. Hasta pronto!</string>
-
+    <string name="popTimeOut">TIMEOUT</string>
+    <string name="popTimeOut_message">No has respondido a tiempo a la pregunta.\n</string>
 
     <!-- activity_finalscore -->
-    <string name="your_score">Esta es tu puntuación:</string>
-    <string name="menu">Volver a Empezar</string>
+    <string name="your_score">Tu puntuación:</string>
+    <string name="menu">Inicio</string>
     <string name="finalTittle">Fin de partida</string>
+    <string name="finalQuestion">¿Deseas registrar tu puntuación?</string>
+    <string name="inputPlayerName">Introduce tu nombre</string>
+    <string name="inputRegister">Registrar</string>
+    <string name="viewRanking">Ver ranking</string>
+
+    <!-- activity_ranking -->
+    <string name="this_ranking">Ranking FastQuiz</string>
+
+    <!-- activity_config -->
+    <string name="config_tittle">Apariencia de la aplicación:</string>
+    <string name="config_light">Modo Claro</string>
+    <string name="config_dark">Modo Nocturno</string>
+    <string name="config_apply">Aplicar</string>
+
+    <!-- activity menu -->
+    <string name="menu_item1">Manual de la App</string>
+    <string name="menu_item2">Configuración</string>
+    <string name="Atras">Atrás</string>
+    <!-- Activity Manual -->
+    <string name="user_manual">Manual de usuario</string>
+    <string name="manual_1">Bienvenido a Fast Quiz!
+        Fast Quiz es un juego de un jugador que consiste en
+        contestar preguntas para alcanzar la máxima puntuación.
+        </string>
+    <string name="manual_2">El primer paso es elegir el modo de juego que quieras, es muy sencillo! Solo pulsa el botón que
+        quieras y comienza el juego!.</string>
+
+    <string name="manual_3">Tienes en primera instancia el modo corto, para aquellos que no quieren perder mucho tiempo,
+        en el que tendrás 5 preguntas que sacarán todo tu ingenio, además de elegir si quieres
+        preguntas que tengan imágenes o no, ¡Eso es a tu elección!.</string>
+
+    <string name="manual_4">El segundo modo es el completo, con todas las preguntas, diseñada para gente que quiere retos
+        extensos y pasar un buen rato aprendiendo. Además...¡Ten cuidado! debido a que... ¡Tienes un tiempo que irá bajando y hará del juego un reto importante! ¡Te costará obtener una buena puntuación y querrás
+        seguir jugando!</string>
+
+    <string name="manual_5">Finalmente, como vemos en la imagen, saldrá la puntuación que has obtenido, si ingresas tu
+        nombre y presionas el botón de guardar, ya estaría listo!.
+        </string>
+    <string name="manual_6">Todas las puntuaciones que registres en tu aplicación se quedarán registradas en el ranking, con lo que podrás presumir de tus puntos. ¿A qué esperas para empezar a jugar?  </string>
+
+    <string name="ImageManual1"> Imagen del manual, corresponde a los botones de selección del modo de juego</string>
+    <string name="ImageManual2"> Imagen del manual, corresponde al switch del deseo de tener imágenes o no</string>
 
 </resources>
